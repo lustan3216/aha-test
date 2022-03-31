@@ -9,7 +9,7 @@ import EmailService from '@services/email.service';
 import { createAuthToken, verifyEmailToken } from '@utils/token';
 import { Provider } from '@/types/provider.enum';
 import { isEmpty } from '@utils/util';
-import { HttpException } from '@exceptions/http.exception';
+import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 
 const EXPIRES_IN = 60 * 60 * 1000;
@@ -35,24 +35,22 @@ export default class AuthController extends IndexController {
     try {
       const userData: CreateUserDto = req.body;
       if (isEmpty(userData)) {
-        next(new HttpException(400, "You're not userData"));
+        next(new Exception(400, "You're not userData"));
       }
 
       const findUser: User = await this.usersClient.findUnique({ where: { email: userData.email } });
       if (!findUser) {
-        next(new HttpException(409, `You're email ${userData.email} not found`, { email: [`You're email ${userData.email} not found`] }));
+        next(new Exception(400, { email: [`You're email ${userData.email} not found`] }));
       }
 
       if (!findUser.password && findUser.provider != Provider.LOCAL) {
-        next(new HttpException(409, `You should login with ${findUser.provider}`, { password: [`You should login with ${findUser.provider}`] }));
+        next(new Exception(400, { password: [`You should login with ${findUser.provider}`] }));
       }
 
       const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
       if (!isPasswordMatching) {
-        next(new HttpException(409, "You're password not matching", { password: ["You're password not matching"] }));
+        next(new Exception(400, { password: ["You're password not matching"] }));
       }
-
-      const token = createAuthToken(findUser.id, EXPIRES_IN);
 
       await this.usersClient.update({
         where: { email: userData.email },
@@ -63,6 +61,7 @@ export default class AuthController extends IndexController {
         },
       });
 
+      const token = createAuthToken(findUser.id, EXPIRES_IN);
       res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
       res.status(200).json({ token });
     } catch (error) {
@@ -94,14 +93,8 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(user.id, EXPIRES_IN);
-      // await this.emailService.sendVerifyEmail(user.email);
-      if (user.isVerify) {
-        res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
-        res.status(200).json({ token });
-      } else {
-        await this.emailService.sendVerifyEmail(user.email);
-        res.status(401).json({ message: 'needVerify' });
-      }
+      res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
+      res.status(200).json({ token });
     } catch (error) {
       next(error);
     }
@@ -130,16 +123,9 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(user.id, EXPIRES_IN);
-      // await this.emailService.sendVerifyEmail(user.email);
-      if (user.isVerify) {
-        res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
-        res.status(200).json({ token });
-      } else {
-        await this.emailService.sendVerifyEmail(user.email);
-        res.status(401).json({ message: 'needVerify' });
-      }
+      res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
+      res.status(200).json({ token });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   };

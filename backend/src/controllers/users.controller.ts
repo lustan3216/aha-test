@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 import userSerializer from '@serializers/user.serializer';
 import { RequestWithCurrentUser } from '@/types/auth.interface';
 import { compare, hash } from 'bcrypt';
-import { HttpException } from '@exceptions/http.exception';
+import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 
 export default class UsersController extends IndexController {
@@ -47,7 +47,6 @@ export default class UsersController extends IndexController {
 
   public resetPassword = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
     try {
-
       if (await compare(req.body.oldPassword, req.currentUser.password)) {
         const newHashedPassword = await hash(req.body.newPassword, 10);
         const updateUserData = await this.usersClient.update({
@@ -57,7 +56,7 @@ export default class UsersController extends IndexController {
 
         res.status(200).json({ data: userSerializer(updateUserData) });
       } else {
-        next(new HttpException(400, 'password invalid', { oldPassword: ['Old password is invalid'] }));
+        next(new Exception(400, { oldPassword: ['Old password is invalid'] }));
       }
     } catch (error) {
       next(error);

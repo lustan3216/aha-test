@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
-import { HttpException } from '@exceptions/http.exception';
+import { Exception } from '@utils/exception';
 import { RequestWithCurrentUser } from '@/types/auth.interface';
 import { verifyAuthToken } from '@/utils/token';
 
@@ -22,14 +22,13 @@ const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Respo
         req.currentUser = findUser;
         next();
       } else {
-        next(new HttpException(401, 'Wrong authentication token'));
+        next(new Exception(401, 'Wrong authentication token'));
       }
     } else {
-      next(new HttpException(404, 'Authentication token missing'));
+      next(new Exception(404, 'Authentication token missing'));
     }
   } catch (error) {
-    console.log(error)
-    next(new HttpException(401, 'Wrong authentication token'));
+    next(new Exception(401, 'Wrong authentication token'));
   }
 };
 
