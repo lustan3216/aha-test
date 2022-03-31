@@ -9,7 +9,7 @@ import { Provider } from '@/types/user';
 import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 
-const EXPIRES_IN = 60 * 60 * 1000;
+const EXPIRES_IN = 60 * 60;
 
 export default class AuthController extends IndexController {
   signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

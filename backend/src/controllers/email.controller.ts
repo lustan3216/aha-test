@@ -6,7 +6,7 @@ import { createAuthToken, verifyEmailToken } from '@utils/token';
 import IndexController from '@controllers/index.controller';
 import { FRONTEND_DOMAIN } from '@config';
 
-const EXPIRES_IN = 60 * 60 * 1000;
+const EXPIRES_IN = 60 * 60;
 
 export default class AuthController extends IndexController {
   emailService = new EmailService();

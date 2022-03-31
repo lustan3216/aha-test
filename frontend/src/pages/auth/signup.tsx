@@ -62,11 +62,6 @@ export default function () {
       className={style.box}
       onFieldsChange={onFieldsChange}
       onFinish={onFinish}
-      initialValues={{
-        email: 'et3216@asd.com',
-        password: 'asd!@#123eE',
-        confirm: 'asd!@#123eE',
-      }}
       scrollToFirstError
     >
       <Typography.Title>SIGN UP</Typography.Title>

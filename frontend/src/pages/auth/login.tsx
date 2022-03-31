@@ -74,10 +74,6 @@ const Login: React.FC = () => {
       name="login"
       labelAlign="left"
       className={style.box}
-      initialValues={{
-        email: 'et3216@gmail.com',
-        password: 'asd!@#123eE',
-      }}
       onFinish={onFinish}
       onFieldsChange={onFieldsChange}
     >
