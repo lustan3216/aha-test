@@ -1,5 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
-import { SENDGRID_API_KEY, CURRENT_DOMAIN } from '@config';
+import { SENDGRID_API_KEY, CURRENT_API_DOMAIN } from '@config';
 import sgMail from '@sendgrid/mail';
 import { verifyTemplate } from '@utils/email';
 import { createEmailToken } from '@utils/token';
@@ -11,7 +11,7 @@ class AuthService {
 
   public async sendVerifyEmail(email: string) {
     const token = createEmailToken(email);
-    const verifyLink = CURRENT_DOMAIN + '/email-verify/' + token;
+    const verifyLink = CURRENT_API_DOMAIN + '/email-verify/' + token;
     console.log(verifyLink);
     const msg = {
       to: 'et3216@gmail.com',
