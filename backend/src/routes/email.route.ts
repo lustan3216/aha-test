@@ -1,6 +1,6 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import EmailController from '@controllers/email.controller';
-import { Routes } from '@/types/routes';
+import {Routes} from '@/types/routes';
 import tokenMiddleware from '@middlewares/token.middleware';
 
 class AuthRoute implements Routes {
@@ -13,8 +13,12 @@ class AuthRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`/email-verify/:token`, this.emailController.emailVerify);
-    this.router.post(`/email-verify`, tokenMiddleware, this.emailController.emailVerifySend);
+    this.router.get('/email-verify/:token', this.emailController.emailVerify);
+    this.router.post(
+      '/email-verify',
+      tokenMiddleware,
+      this.emailController.emailVerifySend
+    );
   }
 }
 

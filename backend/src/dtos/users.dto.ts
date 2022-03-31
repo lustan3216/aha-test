@@ -1,28 +1,28 @@
-import { IsEmail, MinLength, IsString } from 'class-validator';
+import {IsEmail, MinLength, IsString} from 'class-validator';
 import HasLowerChar from './decorators/hasLowerChar.decorator';
 import HasUpperChar from './decorators/hasUpperChar.decorator';
 import HasSpecialChar from './decorators/hasSpecialChar.decorator';
 import HasDigitChar from './decorators/hasDigitChar.decorator';
 
 export class CreateUserDto {
-  @IsEmail({}, { message: 'This email is invalid' })
-  public email: string;
+  @IsEmail({}, {message: 'This email is invalid'})
+  public email: string | undefined;
 
   @MinLength(8)
   @HasUpperChar()
   @HasSpecialChar()
   @HasDigitChar()
   @HasLowerChar()
-  public password: string;
+  public password: string | undefined;
 }
 export class UpdateUserDto {
   @IsString()
-  public username: string;
+  public username: string | undefined;
 }
 
 export class AccessTokenDto {
   @IsString()
-  public accessToken: string;
+  public accessToken: string | undefined;
 }
 
 export class PasswordResetDto {
@@ -31,12 +31,12 @@ export class PasswordResetDto {
   @HasSpecialChar()
   @HasDigitChar()
   @HasLowerChar()
-  public oldPassword: string;
+  public oldPassword: string | undefined;
 
   @MinLength(8)
   @HasUpperChar()
   @HasSpecialChar()
   @HasDigitChar()
   @HasLowerChar()
-  public newPassword: string;
+  public newPassword: string | undefined;
 }

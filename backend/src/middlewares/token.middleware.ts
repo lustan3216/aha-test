@@ -1,12 +1,20 @@
-import { NextFunction, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-import { Exception } from '@utils/exception';
-import { RequestWithCurrentUser } from '@/types/response';
-import { verifyAuthToken } from '@/utils/token';
+import {NextFunction, Response} from 'express';
+import {PrismaClient} from '@prisma/client';
+import {Exception} from '@utils/exception';
+import {RequestWithCurrentUser} from '@/types/response';
+import {verifyAuthToken} from '@/utils/token';
 
-const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Response, next: NextFunction) => {
+const tokenWithVerifyMiddleware = async (
+  req: RequestWithCurrentUser,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const Authorization = req.cookies['Authorization'] || (req.header('Authorization') ? req.header('Authorization').split('Bearer ')[1] : null);
+    const headerAuthorization = req.header('Authorization');
+    const header = headerAuthorization
+      ? headerAuthorization.split('Bearer ')[1]
+      : null;
+    const Authorization = req.cookies['Authorization'] || header;
 
     if (!Authorization) {
       return next(new Exception(404, 'Authentication token missing'));
@@ -17,8 +25,8 @@ const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Respo
 
     const users = new PrismaClient().user;
     const findUser = await users.update({
-      where: { id: Number(userId) },
-      data: { activedAt: new Date() },
+      where: {id: Number(userId)},
+      data: {activedAt: new Date()},
     });
 
     if (findUser) {

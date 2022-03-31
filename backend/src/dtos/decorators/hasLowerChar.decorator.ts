@@ -1,6 +1,9 @@
-import { registerDecorator, ValidationOptions } from 'class-validator';
+import {registerDecorator, ValidationOptions} from 'class-validator';
 
-export default function (property?: string, validationOptions?: ValidationOptions) {
+export default function (
+  property?: string,
+  validationOptions?: ValidationOptions
+) {
   return (object: any, propertyName: string) => {
     registerDecorator({
       name: 'hasLowerChar',

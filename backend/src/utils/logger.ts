@@ -1,8 +1,8 @@
-import { existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
+import {existsSync, mkdirSync} from 'fs';
+import {join} from 'path';
 import winston from 'winston';
 import winstonDaily from 'winston-daily-rotate-file';
-import { LOG_DIR } from '@config';
+import {LOG_DIR} from '@config';
 
 // logs dir
 const logDir: string = join(__dirname, LOG_DIR);
@@ -12,7 +12,9 @@ if (!existsSync(logDir)) {
 }
 
 // Define log format
-const logFormat = winston.format.printf(({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`);
+const logFormat = winston.format.printf(
+  ({timestamp, level, message}) => `${timestamp} ${level}: ${message}`
+);
 
 /*
  * Log Level
@@ -23,7 +25,7 @@ const logger = winston.createLogger({
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
-    logFormat,
+    logFormat
   ),
   transports: [
     // debug log setting
@@ -31,7 +33,7 @@ const logger = winston.createLogger({
       level: 'debug',
       datePattern: 'YYYY-MM-DD',
       dirname: logDir + '/debug', // log file /logs/debug/*.log in save
-      filename: `%DATE%.log`,
+      filename: '%DATE%.log',
       maxFiles: 30, // 30 Days saved
       json: false,
       zippedArchive: true,
@@ -41,7 +43,7 @@ const logger = winston.createLogger({
       level: 'error',
       datePattern: 'YYYY-MM-DD',
       dirname: logDir + '/error', // log file /logs/error/*.log in save
-      filename: `%DATE%.log`,
+      filename: '%DATE%.log',
       maxFiles: 30, // 30 Days saved
       handleExceptions: true,
       json: false,
@@ -52,8 +54,11 @@ const logger = winston.createLogger({
 
 logger.add(
   new winston.transports.Console({
-    format: winston.format.combine(winston.format.splat(), winston.format.colorize()),
-  }),
+    format: winston.format.combine(
+      winston.format.splat(),
+      winston.format.colorize()
+    ),
+  })
 );
 
 const stream = {
@@ -62,4 +67,4 @@ const stream = {
   },
 };
 
-export { logger, stream };
+export {logger, stream};

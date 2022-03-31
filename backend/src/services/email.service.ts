@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-import { SENDGRID_API_KEY, API_DOMAIN } from '@config';
+import {PrismaClient} from '@prisma/client';
+import {SENDGRID_API_KEY, API_DOMAIN} from '@config';
 import sgMail from '@sendgrid/mail';
-import { verifyTemplate } from '@utils/email';
-import { createEmailToken } from '@utils/token';
-import { logger } from '@utils/logger';
+import {verifyTemplate} from '@utils/email';
+import {createEmailToken} from '@utils/token';
+import {logger} from '@utils/logger';
 
 sgMail.setApiKey(SENDGRID_API_KEY);
 

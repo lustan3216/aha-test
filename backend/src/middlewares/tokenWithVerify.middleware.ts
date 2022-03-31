@@ -1,12 +1,20 @@
-import { NextFunction, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-import { Exception } from '@utils/exception';
-import { RequestWithCurrentUser } from '@/types/response';
-import { verifyAuthToken } from '@/utils/token';
+import {NextFunction, Response} from 'express';
+import {PrismaClient} from '@prisma/client';
+import {Exception} from '@utils/exception';
+import {RequestWithCurrentUser} from '@/types/response';
+import {verifyAuthToken} from '@/utils/token';
 
-const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Response, next: NextFunction) => {
+const tokenWithVerifyMiddleware = async (
+  req: RequestWithCurrentUser,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const Authorization = req.cookies['Authorization'] || (req.header('Authorization') ? req.header('Authorization').split('Bearer ')[1] : null);
+    const headerAuthorization = req.header('Authorization');
+    const header = headerAuthorization
+      ? headerAuthorization.split('Bearer ')[1]
+      : null;
+    const Authorization = req.cookies['Authorization'] || header;
 
     if (Authorization) {
       const verificationResponse = verifyAuthToken(Authorization);
@@ -14,12 +22,12 @@ const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Respo
 
       const users = new PrismaClient().user;
       const findUser = await users.update({
-        where: { id: Number(userId) },
-        data: { activedAt: new Date() },
+        where: {id: Number(userId)},
+        data: {activedAt: new Date()},
       });
 
       if (findUser && !findUser.isVerify) {
-        next(new Exception(401, { email: ['Need Verify'] }));
+        next(new Exception(401, {email: ['Need Verify']}));
       } else if (findUser) {
         req.currentUser = findUser;
         next();
@@ -30,7 +38,7 @@ const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Respo
       next(new Exception(404, 'Authentication token missing'));
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     next(new Exception(401, 'Wrong authentication token'));
   }
 };

@@ -1,12 +1,13 @@
-import { Request } from 'express';
-import { User } from '@prisma/client';
-import { ParsedQs } from 'qs';
+import {Request} from 'express';
+import {User} from '@prisma/client';
+import {ParsedQs} from 'qs';
 
 export interface ErrorMap {
   [key: string]: string[];
 }
 
-export interface RequestWithCurrentUser<Q = any> extends Omit<Request, 'query'> {
+export interface RequestWithCurrentUser<Q = Record<string, string>>
+  extends Omit<Request, 'query'> {
   currentUser: User;
   query: ParsedQs & Q;
 }

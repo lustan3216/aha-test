@@ -11,7 +11,12 @@ validateEnv();
 
 const hskey = fs.readFileSync('pillaAuth-key.pem', 'utf8');
 const hscert = fs.readFileSync('pillaAuth-cert.pem', 'utf8');
-const app = new App([new IndexRoute(), new UsersRoute(), new AuthRoute(), new EmailRoute()]);
+const app = new App([
+  new IndexRoute(),
+  new UsersRoute(),
+  new AuthRoute(),
+  new EmailRoute(),
+]);
 
 // app.listen();
 

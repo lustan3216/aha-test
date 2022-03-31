@@ -1,4 +1,4 @@
-import { FRONTEND_DOMAIN } from '@config';
+import {FRONTEND_DOMAIN} from '@config';
 
 export function verifyTemplate(verifyLink: string) {
   return `<center class="wrapper" data-token-color="#1188E6" data-body-style="font-size:14px; font-family:inherit; color:#000000; background-color:#FFFFFF;">

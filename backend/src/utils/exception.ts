@@ -1,4 +1,5 @@
-import { ErrorMap } from '@/types/response';
+import {ErrorMap} from '@/types/response';
+import {flatten} from 'array-flatten';
 
 export class Exception {
   status: number;
@@ -13,7 +14,7 @@ export class Exception {
       this.errors = {};
     } else {
       this.errors = error;
-      this.message = Object.values(error).flat().join(',');
+      this.message = flatten(Object.values(error)).join(',');
     }
   }
 }
