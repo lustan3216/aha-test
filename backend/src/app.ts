@@ -5,12 +5,19 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
+import Rollbar from 'rollbar';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, CREDENTIALS, ROLLBAR_KEY } from '@config';
 import { Routes } from '@/types/routes';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
+
+const rollbar = new Rollbar({
+  accessToken: ROLLBAR_KEY,
+  environment: NODE_ENV,
+  enabled: NODE_ENV === 'production',
+});
 
 class App {
   app: express.Application;
@@ -76,6 +83,7 @@ class App {
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+    this.app.use(rollbar.errorHandler());
   }
 }
 
