@@ -2,8 +2,8 @@
   "name": "@aha-test/frontend",
   "version": "0.0.1",
   "scripts": {
-    "dev": "umi dev",
-    "build": "umi build",
+    "dev": "NODE_ENV=development umi dev",
+    "build": "NODE_ENV=production umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
@@ -23,6 +23,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-layout": "^6.5.0",
+    "@rollbar/react": "^0.11.0",
     "@types/js-cookie": "^3.0.1",
     "@types/lodash.camelcase": "^4.3.6",
     "axios": "^0.26.1",
