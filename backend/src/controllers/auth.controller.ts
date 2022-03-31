@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import { User } from '@prisma/client';
 import { CreateUserDto } from '@dtos/users.dto';
 import { RequestWithCurrentUser, FacebookProfile, GoogleProfile } from '@/types/auth.interface';
-import AuthService from '@services/auth.service';
 import EmailService from '@services/email.service';
 import { createAuthToken, verifyEmailToken } from '@utils/token';
 import { Provider } from '@/types/provider.enum';
-import { isEmpty } from '@utils/util';
 import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 import { FRONTEND_DOMAIN } from '@config';
@@ -16,14 +14,21 @@ import { FRONTEND_DOMAIN } from '@config';
 const EXPIRES_IN = 60 * 60 * 1000;
 
 export default class AuthController extends IndexController {
-  authService = new AuthService();
   emailService = new EmailService();
 
   signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
-      const user = await this.authService.signup(userData);
-      const token = createAuthToken(user.id, EXPIRES_IN);
+
+      const findUser: User = await this.usersClient.findUnique({ where: { email: userData.email } });
+      if (findUser) {
+        next(new Exception(400, { email: [`This email ${userData.email} already exists`] }));
+      }
+
+      const hashedPassword = await hash(userData.password, 10);
+      const createUserData: User = await this.usersClient.create({ data: { ...userData, password: hashedPassword } });
+
+      const token = createAuthToken(createUserData.id, EXPIRES_IN);
 
       res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true });
       res.status(200).json({ token });
@@ -35,9 +40,6 @@ export default class AuthController extends IndexController {
   logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
-      if (isEmpty(userData)) {
-        next(new Exception(400, "You're not userData"));
-      }
 
       const findUser: User = await this.usersClient.findUnique({ where: { email: userData.email } });
       if (!findUser) {
@@ -134,10 +136,14 @@ export default class AuthController extends IndexController {
   logOut = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const userData: User = req.currentUser;
-      const logOutUserData: User = await this.authService.logout(userData);
+
+      const findUser: User = await this.usersClient.findFirst({ where: { email: userData.email, password: userData.password } });
+      if (!findUser) {
+        next(new Exception(400, "You're not user"));
+      }
 
       res.cookie('Authorization', '', { maxAge: 0 });
-      res.status(200).json({ data: logOutUserData });
+      res.status(200).json({ data: findUser });
     } catch (error) {
       next(error);
     }
