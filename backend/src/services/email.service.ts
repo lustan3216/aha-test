@@ -8,9 +8,9 @@ import { logger } from '@utils/logger';
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 class AuthService {
-  public users = new PrismaClient().user;
+  users = new PrismaClient().user;
 
-  public async sendVerifyEmail(email: string) {
+  async sendVerifyEmail(email: string) {
     const token = createEmailToken(email);
     const verifyLink = API_DOMAIN + '/email-verify/' + token;
 

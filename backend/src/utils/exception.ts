@@ -1,9 +1,9 @@
 import { ErrorMap } from '@/types/response.interface';
 
 export class Exception {
-  public status: number;
-  public message: string;
-  public errors?: ErrorMap;
+  status: number;
+  message: string;
+  errors?: ErrorMap;
 
   constructor(status: number, error: string | ErrorMap) {
     this.status = status;

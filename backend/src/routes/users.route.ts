@@ -6,9 +6,9 @@ import tokenWithVerifyMiddleware from '@middlewares/tokenWithVerify.middleware';
 import validationMiddleware from '@middlewares/validation.middleware';
 
 class UsersRoute implements Routes {
-  public path = '/';
-  public router = Router();
-  public usersController = new UsersController();
+  path = '/';
+  router = Router();
+  usersController = new UsersController();
 
   constructor() {
     this.initializeRoutes();

@@ -7,7 +7,7 @@ import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 
 export default class UsersController extends IndexController {
-  public getUsers = async (req: RequestWithCurrentUser<{ page: number }>, res: Response, next: NextFunction): Promise<void> => {
+  getUsers = async (req: RequestWithCurrentUser<{ page: number }>, res: Response, next: NextFunction): Promise<void> => {
     try {
       const per = 10;
       const page = (req.query.page - 1) || 0
@@ -23,7 +23,7 @@ export default class UsersController extends IndexController {
     }
   };
 
-  public userMeGe = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
+  userMeGe = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       res.status(200).json({ data: userSerializer(req.currentUser) });
     } catch (error) {
@@ -31,7 +31,7 @@ export default class UsersController extends IndexController {
     }
   };
 
-  public updateUser = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
+  updateUser = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const currentUser = req.currentUser;
       const updateUserData = await this.usersClient.update({
@@ -45,7 +45,7 @@ export default class UsersController extends IndexController {
     }
   };
 
-  public resetPassword = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
+  resetPassword = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       if (await compare(req.body.oldPassword, req.currentUser.password)) {
         const newHashedPassword = await hash(req.body.newPassword, 10);

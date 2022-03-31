@@ -5,9 +5,9 @@ import tokenWithVerifyMiddleware from '@middlewares/tokenWithVerify.middleware';
 import userVerifyMiddleware from '@middlewares/token.middleware';
 
 class IndexRoute implements Routes {
-  public path = '/';
-  public router = Router();
-  public statisticsController = new StatisticsController();
+  path = '/';
+  router = Router();
+  statisticsController = new StatisticsController();
 
   constructor() {
     this.initializeRoutes();

@@ -6,7 +6,7 @@ import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 
 export default class StatisticsController extends IndexController {
-  public statistics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  statistics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const total = await this.usersClient.count();
       const todayActiveUser = await this.usersClient.count({

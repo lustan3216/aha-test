@@ -5,9 +5,9 @@ import { Exception } from '@utils/exception';
 import { isEmpty } from '@utils/util';
 
 class AuthService {
-  public users = new PrismaClient().user;
+  users = new PrismaClient().user;
 
-  public async signup(userData: CreateUserDto): Promise<User> {
+  async signup(userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new Exception(400, "You're not userData");
 
     const findUser: User = await this.users.findUnique({ where: { email: userData.email } });
@@ -21,7 +21,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(userData: CreateUserDto): Promise<User> {
+  async login(userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new Exception(400, "You're not userData");
 
     const findUser: User = await this.users.findUnique({ where: { email: userData.email } });
@@ -33,7 +33,7 @@ class AuthService {
     return findUser;
   }
 
-  public async logout(userData: User): Promise<User> {
+  async logout(userData: User): Promise<User> {
     if (isEmpty(userData)) throw new Exception(400, "You're not userData");
 
     const findUser: User = await this.users.findFirst({ where: { email: userData.email, password: userData.password } });

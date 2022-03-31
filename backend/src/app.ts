@@ -13,9 +13,9 @@ import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 
 class App {
-  public app: express.Application;
-  public env: string;
-  public port: string | number;
+  app: express.Application;
+  env: string;
+  port: string | number;
 
   constructor(routes: Routes[]) {
     this.app = express();
@@ -28,7 +28,7 @@ class App {
     this.initializeErrorHandling();
   }
 
-  public listen() {
+  listen() {
     this.app.listen(this.port, () => {
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
@@ -37,7 +37,7 @@ class App {
     });
   }
 
-  public getServer() {
+  getServer() {
     return this.app;
   }
 
