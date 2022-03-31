@@ -21,3 +21,5 @@ export const TAIL_FORM_ITEM_LAYOUT = {
     },
   },
 };
+
+export const ERROR_MESSAGE = "Something broken, I will fix it in 6 hours."

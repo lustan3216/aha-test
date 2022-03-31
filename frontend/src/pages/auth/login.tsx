@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Form, Input, Button, Typography } from 'antd';
+import { Form, Input, Button, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, Link, history } from "umi";
 import { GoogleLogin } from 'react-google-login';
@@ -8,7 +8,7 @@ import FacebookLogin from 'react-facebook-login';
 import { ErrorMessagesType } from "@/types/response";
 import style from "./auth.less";
 import facebookIcon from "./facebook.svg";
-import { FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
+import { ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
 import Help from "@/components/Help";
 
 const initErrors: ErrorMessagesType = {
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data?.errors)
       } else {
-
+        message.error(ERROR_MESSAGE)
       }
     }
   };

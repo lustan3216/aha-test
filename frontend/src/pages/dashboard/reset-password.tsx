@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, Avatar, Switch, Button, Typography } from 'antd';
+import { Form, Input, Avatar, Switch, Button, Typography, message } from 'antd';
 import { useDispatch, useSelector } from 'umi';
 import axios from "axios";
 import Help from "@/components/Help";
 import { ModelType } from "@/models";
 import { AccountProvider } from "@/types/user";
 import { ErrorMessagesType } from "@/types/response";
-import { FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
+import { ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
 import style from "@/pages/dashboard/dashboard.less";
 
 const initErrors: ErrorMessagesType = {
@@ -31,12 +31,12 @@ export default function () {
         },
       })
       setErrors(initErrors)
-
+      message.success('Update success')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data?.errors)
       } else {
-
+        message.error(ERROR_MESSAGE)
       }
     }
   };

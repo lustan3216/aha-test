@@ -4,7 +4,7 @@ import { Form, Input, Avatar, Switch, Button, Typography, message } from 'antd';
 import { useDispatch, useSelector } from 'umi';
 import { ModelType } from "@/models";
 import { UserOutlined } from "@ant-design/icons";
-import { FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
+import { FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT, ERROR_MESSAGE } from "@/const";
 import style from "./dashboard.less";
 
 export default function () {
@@ -21,12 +21,11 @@ export default function () {
         },
       })
 
-      message.success('Update username success')
+      message.success('Update success')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
       } else {
-        console.error(error)
-        message.error('Has server error, I will fix it in a hour')
+        message.error(ERROR_MESSAGE)
       }
     }
   };

@@ -15,7 +15,8 @@ export default function () {
   const resend = async () => {
     start(initialTime)
     const data = await userResendVerifyEmail()
-    message.success(`We sent an Email to ${email || data.email}, please check!`)
+
+    message.success(`We sent a verify email to ${email || data.email}, please check!`)
   }
 
   return (

@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import {
   Form,
   Input,
-  Button, Typography,
+  Button, Typography, message,
 } from 'antd';
 import { history, Link, useDispatch } from 'umi';
 import Help from "@/components/Help";
 import { ErrorMessagesType } from "@/types/response";
 import style from "@/pages/auth/auth.less";
-import { FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
+import { ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
 import { LockOutlined } from "@ant-design/icons";
 
 const initErrors: ErrorMessagesType = {
@@ -33,12 +33,13 @@ export default function () {
         },
       })
       setErrors(initErrors)
+      message.success(`We sent a verify email to ${values.email}, please check!`)
       history.push('/auth/email-verify')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data?.errors)
       } else {
-
+        message.error(ERROR_MESSAGE)
       }
     }
   };
