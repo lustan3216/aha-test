@@ -6,19 +6,19 @@ import {
   userGoogleLogin,
   userUpdate,
   userResetPassword,
-} from "@/services/user";
-import Cookie from "js-cookie";
-import { AccountProvider } from "@/types/user";
+} from '@/services/user';
+import Cookie from 'js-cookie';
+import {AccountProvider} from '@/types/user';
 
 export type UserStateType = {
-  [key: string]: any,
-  isVerify: boolean,
-  tryFetched: boolean,
-  email: Nullable<string>,
-  provider: AccountProvider,
-  username: Nullable<string>,
-  picture: Nullable<string>,
-}
+  [key: string]: any;
+  isVerify: boolean;
+  tryFetched: boolean;
+  email: Nullable<string>;
+  provider: AccountProvider;
+  username: Nullable<string>;
+  picture: Nullable<string>;
+};
 
 export type UserModelType = ModelType<UserStateType>;
 
@@ -28,91 +28,91 @@ const initState = (): UserStateType => ({
   isVerify: false,
   provider: AccountProvider.Local,
   picture: null,
-  username: null
-})
+  username: null,
+});
 
-export default <UserModelType> {
+export default <UserModelType>{
   namespace: 'user',
   state: initState(),
   reducers: {
     tryFetch(state) {
-      state.tryFetched = true
+      state.tryFetched = true;
     },
-    setUser(state, { payload }) {
-      state.email = payload.email
-        state.isVerify = payload.isVerify
-        state.provider = payload.provider
-        state.picture = payload.picture
-        state.username = payload.username
+    setUser(state, {payload}) {
+      state.email = payload.email;
+      state.isVerify = payload.isVerify;
+      state.provider = payload.provider;
+      state.picture = payload.picture;
+      state.username = payload.username;
     },
     cleanUser(state) {
-      state.email = null
-      state.isVerify = false
-      state.provider = AccountProvider.Local
-      state.picture = null
-      state.username = null
+      state.email = null;
+      state.isVerify = false;
+      state.provider = AccountProvider.Local;
+      state.picture = null;
+      state.username = null;
     },
   },
   effects: {
-    *userUpdate({ payload }, { call, put }) {
+    *userUpdate({payload}, {call, put}) {
       try {
-        const { data } = yield call(userUpdate, payload);
-        yield put({ type: 'setUser', payload: data });
+        const {data} = yield call(userUpdate, payload);
+        yield put({type: 'setUser', payload: data});
       } finally {
-        yield put({ type: 'tryFetch' });
+        yield put({type: 'tryFetch'});
       }
     },
-    *userMeGe({ payload }, { call, put }) {
+    *userMeGe(action, {call, put}) {
       try {
-        const token = Cookie.get('Authorization')
+        const token = Cookie.get('Authorization');
         if (token) {
-          const { data } = yield call(userMe);
-          yield put({ type: 'setUser', payload: data });
+          const {data} = yield call(userMe);
+          yield put({type: 'setUser', payload: data});
         }
       } finally {
-        yield put({ type: 'tryFetch' });
+        yield put({type: 'tryFetch'});
       }
     },
-    *signUp({ payload }, { call, put }) {
+    *signUp({payload}, {call, put}) {
       try {
         yield call(userSignUp, payload);
-        yield put({ type: 'userMeGe' })
+        yield put({type: 'userMeGe'});
       } catch (e) {
-        yield put({ type: 'logout' })
+        yield put({type: 'logout'});
       }
     },
-    *resetPassword({ payload }, { call, put }) {
+    *resetPassword({payload}, {call}) {
       yield call(userResetPassword, payload);
     },
-    *login({ payload }, { call, put }) {
+    *login({payload}, {call, put}) {
       try {
         yield call(userLogin, payload);
-        yield put({ type: 'userMeGe' })
+        yield put({type: 'userMeGe'});
       } catch (e) {
-        yield put({ type: 'logout' })
+        yield put({type: 'logout'});
       } finally {
-        yield put({ type: 'tryFetch' });
+        yield put({type: 'tryFetch'});
       }
     },
-    *loginFacebook({ payload }, { call, put }) {
+    *loginFacebook({payload}, {call, put}) {
       yield call(userFacebookLogin, payload);
-      yield put({ type: 'userMeGe' })
+      yield put({type: 'userMeGe'});
     },
-    *loginGoogle({ payload }, { call, put }) {
+    *loginGoogle({payload}, {call, put}) {
       yield call(userGoogleLogin, payload);
-      yield put({ type: 'userMeGe' })
+      yield put({type: 'userMeGe'});
     },
-    *logout({ payload }, { put }) {
-      Cookie.remove('Authorization')
-      yield put({ type: 'cleanUser' })
+    *logout(action, {put}) {
+      Cookie.remove('Authorization');
+      yield put({type: 'cleanUser'});
     },
   },
   subscriptions: {
-    setup({ dispatch }) {
-      dispatch({ type: 'userMeGe' })
-    }
-  }
-}
+    setup({dispatch}) {
+      dispatch({type: 'userMeGe'});
+    },
+  },
+};
 
 // (async function() {
 //   try {

@@ -1,11 +1,11 @@
 export const FORM_ITEM_PAYOUT = {
   labelCol: {
-    xs: { span: 24 },
-    sm: { span: 9 },
+    xs: {span: 24},
+    sm: {span: 9},
   },
   wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 15 },
+    xs: {span: 24},
+    sm: {span: 15},
   },
 };
 
@@ -22,4 +22,4 @@ export const TAIL_FORM_ITEM_LAYOUT = {
   },
 };
 
-export const ERROR_MESSAGE = "Something broken, I will fix it in 6 hours."
+export const ERROR_MESSAGE = 'Something broken, I will fix it in 6 hours.';

@@ -1,26 +1,22 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import {
-  Form,
-  Input,
-  Button, Typography, message,
-} from 'antd';
-import { history, Link, useDispatch } from 'umi';
-import Help from "@/components/Help";
-import { ErrorMessagesType } from "@/types/response";
-import style from "@/pages/auth/auth.less";
-import { ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
-import { LockOutlined } from "@ant-design/icons";
+import React, {useState} from 'react';
+import {Form, Input, Button, Typography, message} from 'antd';
+import {history, Link, useDispatch} from 'umi';
+import Help from '@/components/Help';
+import {ErrorMessagesType} from '@/types/response';
+import style from '@/pages/auth/auth.less';
+import {ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT} from '@/const';
+import {LockOutlined} from '@ant-design/icons';
 
 const initErrors: ErrorMessagesType = {
   email: [],
   password: [],
-  passwordConfirm: []
-}
+  passwordConfirm: [],
+};
 
 export default function () {
   const [form] = Form.useForm();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState(initErrors);
 
   const onFinish = async (values: any) => {
@@ -31,27 +27,29 @@ export default function () {
           email: values.email,
           password: values.password,
         },
-      })
-      setErrors(initErrors)
-      message.success(`We sent a verify email to ${values.email}, please check!`)
-      history.push('/auth/email-verify')
+      });
+      setErrors(initErrors);
+      message.success(
+        `We sent a verify email to ${values.email}, please check!`
+      );
+      history.push('/auth/email-verify');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        setErrors(error.response.data?.errors)
+        setErrors(error.response.data?.errors);
       } else {
-        message.error(ERROR_MESSAGE)
+        message.error(ERROR_MESSAGE);
       }
     }
   };
 
   const onFieldsChange = () => {
-    const formErrors = form.getFieldsError()
+    const formErrors = form.getFieldsError();
     const errors = formErrors.reduce((acc: ErrorMessagesType, current) => {
-      acc[current.name[0]] = current.errors
-      return acc
-    }, {})
-    setErrors(errors)
-  }
+      acc[current.name[0]] = current.errors;
+      return acc;
+    }, {});
+    setErrors(errors);
+  };
 
   return (
     <Form
@@ -70,7 +68,7 @@ export default function () {
         name="email"
         label="E-mail"
         validateStatus={errors.email?.length ? 'error' : 'success'}
-        help={<Help messages={errors.email}/>}
+        help={<Help messages={errors.email} />}
         hasFeedback
         rules={[
           {
@@ -116,10 +114,12 @@ export default function () {
           },
         ]}
         validateStatus={errors.password?.length ? 'error' : 'success'}
-        help={<Help messages={errors.password}/>}
+        help={<Help messages={errors.password} />}
         hasFeedback
       >
-        <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} />
+        <Input.Password
+          prefix={<LockOutlined className="site-form-item-icon" />}
+        />
       </Form.Item>
 
       <Form.Item
@@ -132,17 +132,21 @@ export default function () {
             required: true,
             message: 'Please confirm your password!',
           },
-          ({ getFieldValue }) => ({
+          ({getFieldValue}) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              return Promise.reject(
+                new Error('The two passwords that you entered do not match!')
+              );
             },
           }),
         ]}
       >
-        <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} />
+        <Input.Password
+          prefix={<LockOutlined className="site-form-item-icon" />}
+        />
       </Form.Item>
 
       {/*<Form.ErrorList errors={[errorMessage]} />*/}

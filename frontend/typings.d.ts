@@ -2,7 +2,7 @@ declare module '*.css';
 declare module '*.less';
 declare module '*.svg';
 declare module '*.png';
-declare module "*.json" {
+declare module '*.json' {
   const content: object;
   export default content;
 }
@@ -10,7 +10,9 @@ declare module "*.json" {
 type Effect<StateType> = (
   // 该类型定义Effect类型
   action: import('redux').AnyAction,
-  effects: import('dva').EffectsCommandMap & { select: <T>(func: (state: StateType) => T) => T },
+  effects: import('dva').EffectsCommandMap & {
+    select: <T>(func: (state: StateType) => T) => T;
+  }
 ) => void;
 
 type ModelType<StateType> = {
@@ -23,7 +25,7 @@ type ModelType<StateType> = {
   reducers: {
     [propName: string]: import('umi').ImmerReducer<StateType>;
   };
-  subscriptions?: { setup: import('umi').Subscription };
-}
+  subscriptions?: {setup: import('umi').Subscription};
+};
 
-type Nullable<T> = null | T
+type Nullable<T> = null | T;

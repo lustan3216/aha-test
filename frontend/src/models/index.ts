@@ -1,5 +1,5 @@
-import { UserStateType } from './user'
+import {UserStateType} from './user';
 
 export type ModelType = {
-  user: UserStateType
-}
+  user: UserStateType;
+};

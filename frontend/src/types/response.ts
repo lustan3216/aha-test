@@ -1,8 +1,8 @@
 export type Meta = {
-  total: number,
-  currentPage: number
-}
+  total: number;
+  currentPage: number;
+};
 
 export interface ErrorMessagesType {
-  [key: string]: Array<string>
+  [key: string]: Array<string>;
 }

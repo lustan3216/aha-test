@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Help: React.FC<{ messages: string[] }> = function({ messages }) {
-  if (!messages) return null
+const Help: React.FC<{messages: string[]}> = function ({messages}) {
+  if (!messages) return null;
   return (
     <ul
       style={{
@@ -10,9 +10,11 @@ const Help: React.FC<{ messages: string[] }> = function({ messages }) {
         listStyleType: 'none',
       }}
     >
-      { messages.map(message => <li key={message}>{ message }</li>) }
+      {messages.map(message => (
+        <li key={message}>{message}</li>
+      ))}
     </ul>
-  )
-}
+  );
+};
 
-export default Help
+export default Help;

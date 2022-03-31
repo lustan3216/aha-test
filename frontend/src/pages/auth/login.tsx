@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Form, Input, Button, Typography, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useDispatch, Link, history } from "umi";
-import { GoogleLogin } from 'react-google-login';
+import React, {useState} from 'react';
+import axios from 'axios';
+import {Form, Input, Button, Typography, message} from 'antd';
+import {UserOutlined, LockOutlined} from '@ant-design/icons';
+import {useDispatch, Link} from 'umi';
+import {GoogleLogin} from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
-import { ErrorMessagesType } from "@/types/response";
-import style from "./auth.less";
-import facebookIcon from "./facebook.svg";
-import { ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT } from "@/const";
-import Help from "@/components/Help";
+import {ErrorMessagesType} from '@/types/response';
+import style from './auth.less';
+import facebookIcon from './facebook.svg';
+import {ERROR_MESSAGE, FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT} from '@/const';
+import Help from '@/components/Help';
 
 const initErrors: ErrorMessagesType = {
   email: [],
-  password: []
-}
+  password: [],
+};
 
 const Login: React.FC = () => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState(initErrors);
 
   const onFinish = async (values: any) => {
@@ -29,13 +29,13 @@ const Login: React.FC = () => {
           email: values.email,
           password: values.password,
         },
-      })
-      setErrors(initErrors)
+      });
+      setErrors(initErrors);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        setErrors(error.response.data?.errors)
+        setErrors(error.response.data?.errors);
       } else {
-        message.error(ERROR_MESSAGE)
+        message.error(ERROR_MESSAGE);
       }
     }
   };
@@ -44,8 +44,8 @@ const Login: React.FC = () => {
     if (payload.accessToken) {
       dispatch({
         type: 'user/loginGoogle',
-        payload: { accessToken: payload.accessToken }
-      })
+        payload: {accessToken: payload.accessToken},
+      });
     }
   }
 
@@ -53,19 +53,19 @@ const Login: React.FC = () => {
     if (payload.accessToken) {
       dispatch({
         type: 'user/loginFacebook',
-        payload: { accessToken: payload.accessToken }
-      })
+        payload: {accessToken: payload.accessToken},
+      });
     }
   }
 
   const onFieldsChange = () => {
-    const formErrors = form.getFieldsError()
+    const formErrors = form.getFieldsError();
     const errors = formErrors.reduce((acc: ErrorMessagesType, current) => {
-      acc[current.name[0]] = current.errors
-      return acc
-    }, {})
-    setErrors(errors)
-  }
+      acc[current.name[0]] = current.errors;
+      return acc;
+    }, {});
+    setErrors(errors);
+  };
 
   return (
     <Form
@@ -83,7 +83,7 @@ const Login: React.FC = () => {
         name="email"
         label="Email"
         validateStatus={errors.email?.length ? 'error' : 'success'}
-        help={<Help messages={errors.email}/>}
+        help={<Help messages={errors.email} />}
         hasFeedback
         rules={[
           {
@@ -96,7 +96,10 @@ const Login: React.FC = () => {
           },
         ]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Username"
+        />
       </Form.Item>
 
       <Form.Item
@@ -129,10 +132,12 @@ const Login: React.FC = () => {
           },
         ]}
         validateStatus={errors.password?.length ? 'error' : 'success'}
-        help={<Help messages={errors.password}/>}
+        help={<Help messages={errors.password} />}
         hasFeedback
       >
-        <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} />
+        <Input.Password
+          prefix={<LockOutlined className="site-form-item-icon" />}
+        />
       </Form.Item>
 
       <Form.Item {...TAIL_FORM_ITEM_LAYOUT}>
@@ -165,4 +170,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login
+export default Login;
