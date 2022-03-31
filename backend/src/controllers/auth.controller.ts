@@ -26,7 +26,7 @@ export default class AuthController extends IndexController {
 
       const token = createAuthToken(createUserData.id, EXPIRES_IN);
 
-      res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true });
+      res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true, secure: true });
       res.status(200).json({ token });
     } catch (error) {
       next(error);
@@ -61,7 +61,7 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(findUser.id, EXPIRES_IN);
-      res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
+      res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true, secure: true });
       res.status(200).json({ token });
     } catch (error) {
       next(error);
@@ -92,7 +92,7 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(user.id, EXPIRES_IN);
-      res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
+      res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true, secure: true });
       res.status(200).json({ token });
     } catch (error) {
       next(error);
@@ -122,7 +122,7 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(user.id, EXPIRES_IN);
-      res.cookie('Authorization', token, { maxAge: EXPIRES_IN });
+      res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true, secure: true });
       res.status(200).json({ token });
     } catch (error) {
       next(error);
