@@ -1,3 +1,5 @@
+import { FRONTEND_DOMAIN } from '@config';
+
 export function verifyTemplate(verifyLink: string) {
   return `<center class="wrapper" data-token-color="#1188E6" data-body-style="font-size:14px; font-family:inherit; color:#000000; background-color:#FFFFFF;">
         <div class="webkit">
@@ -45,20 +47,20 @@ export function verifyTemplate(verifyLink: string) {
           <td style="padding:0px;margin:0px;border-spacing:0;"><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="6cf92250-86a4-41d8-865a-ae5fb2569556" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Only 2 days left...</div><div></div></div></td>
+        <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">EXPIRE IN A HOUR...</div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="8c54c8a5-caee-4b33-b6b0-e8aaed51c545" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:18px 10px 18px 10px; line-height:32px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="color: #79a6ff; font-size: 50px">Your trial is almost over!</span></div><div></div></div></td>
+        <td style="padding:18px 10px 18px 10px; line-height:32px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="color: #79a6ff; font-size: 50px">Cilck the button below to verify email!</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="6cf92250-86a4-41d8-865a-ae5fb2569556.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:0px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Upgrade to continue enjoying music and videos on demand.</div>
-<div style="font-family: inherit; text-align: center">Any time. Any place.</div><div></div></div></td>
+        <td style="padding:0px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Make content rich to avoid to avoid becoming spam mail.</div>
+<div style="font-family: inherit; text-align: center">Those content should be enough.</div><div></div></div></td>
       </tr>
     </tbody>
   </table><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="4bcb53df-57db-48a5-9aa3-4060ac494a64">
@@ -69,7 +71,7 @@ export function verifyTemplate(verifyLink: string) {
               <tbody>
                 <tr>
                 <td align="center" bgcolor="#333333" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                  <a href="" style="background-color:#333333; border:1px solid #333333; border-color:#333333; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 30px 12px 30px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">I'm Ready To Upgrade!</a>
+                  <a href="${verifyLink}" style="background-color:#333333; border:1px solid #333333; border-color:#333333; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 30px 12px 30px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">Verify Email!</a>
                 </td>
                 </tr>
               </tbody>
@@ -113,7 +115,7 @@ export function verifyTemplate(verifyLink: string) {
               <tbody>
                 <tr>
                 <td align="center" bgcolor="#79a6ff" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                  <a href="${verifyLink}" style="background-color:#79a6ff; border:1px solid #79a6ff; border-color:#79a6ff; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 60px 12px 60px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">Extend My Trial</a>
+                  <a href="${FRONTEND_DOMAIN}" style="background-color:#79a6ff; border:1px solid #79a6ff; border-color:#79a6ff; border-radius:0px; border-width:1px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 60px 12px 60px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">Back To Homepage</a>
                 </td>
                 </tr>
               </tbody>
@@ -133,7 +135,7 @@ export function verifyTemplate(verifyLink: string) {
         <td style="padding:40px 30px 40px 30px; line-height:22px; text-align:inherit; background-color:#79a6ff;" height="100%" valign="top" bgcolor="#79a6ff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="color: #ffffff">Need help choosing a plan? Questions about accounts or billing?</span></div>
 <div style="font-family: inherit; text-align: center"><span style="color: #ffffff">We're here to help. Our customer services reps are available 24/7.</span></div>
 <div style="font-family: inherit; text-align: center"><br></div>
-<div style="font-family: inherit; text-align: center"><a href="http://"><span style="color: #ffffff"><u><strong>Contact Us</strong></u></span></a></div><div></div></div></td>
+<div style="font-family: inherit; text-align: center"></div><div></div></div></td>
       </tr>
     </tbody>
   </table>
