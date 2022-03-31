@@ -1,0 +1,52 @@
+.box {
+  max-width: 500px;
+  padding-top: 30px;
+  margin: auto;
+}
+
+.or {
+  padding: 0 15px;
+}
+
+.facebookButton {
+  width: 100%;
+  background-color: #2E75E0;
+  color: white;
+  border: none;
+  padding: 11px;
+  text-align: left;
+  text-transform: uppercase;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24) !important;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 300ms;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+  }
+
+  &:hover {
+    background-color: lighten(#2E75E0, 10%);
+  }
+}
+
+.googleButton {
+  width: 100%;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24) !important;
+  transition: all 300ms;
+
+  & > div {
+    padding: 5px 15px 0 13px !important;
+    margin-right: 5px !important;
+  }
+
+  &:hover {
+    background: #dbd6d6;
+    color: #212020;
+  }
+}

@@ -1,0 +1,37 @@
+###
+# Find All Users
+GET http://localhost:3000/v1/users
+
+###
+# Find User By Id
+GET https://localhost:3000/v1/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTY0ODQ4NjUwMCwiZXhwIjoxNjUyMDg2NTAwfQ._SKty9GHdtLvS06pQv66cVAFU1h8jirHngBIklAGZas
+
+###
+# Create User
+POST http://localhost:3000/v1/users
+Content-Type: application/json
+
+{
+    "email": "example@email.com",
+	"password": "password"
+}
+
+###
+# Create User
+GET https://www.googleapis.com/oauth2/v1/userinfo?access_token=ya29.A0ARrdaM-tiX6RAHGgt57JNKr_gG4qW0F4RjDaXmd3_tPE3PxvbQ1xh9IE6prRPs6TdPXUYXHAiRihJOMLkegMnTYfhlyqiMklUr1Oe47ZjQ7kTRcNUA0QAxft7LNTW3iDAh_D804L-pbNuouQr3DqS2VMtZD4
+Authorization: ya29.A0ARrdaM-tiX6RAHGgt57JNKr_gG4qW0F4RjDaXmd3_tPE3PxvbQ1xh9IE6prRPs6TdPXUYXHAiRihJOMLkegMnTYfhlyqiMklUr1Oe47ZjQ7kTRcNUA0QAxft7LNTW3iDAh_D804L-pbNuouQr3DqS2VMtZD4
+
+###
+# Modify User By Id
+PUT http://localhost:3000/v1/users/1
+Content-Type: application/json
+
+{
+    "email": "example@email.com",
+	"password": "password"
+}
+
+###
+# Delete User By Id
+DELETE http://localhost:3000/v1/users/

@@ -1,0 +1,43 @@
+###
+# User Signup
+POST http://localhost:3000/v1/signup
+Content-Type: application/json
+
+{
+  "email": "et3216@gmail.com",
+  "password": "asd!@#123eE"
+}
+
+###
+# User Login
+POST http://localhost:3000/v1/login/facebook
+Content-Type: application/json
+
+{
+  "accessToken": "EAAMHJK79EyMBAGiZC7ZCExY0oYBjtlDgDTHZB94xCJF4s7pxS9R5ZAWlbfwMsZAiTDaGuhtVempJuqaNPpnmiLUG8kZAlpiWyB1T6oZA5erey80BK0EBLl2RlJ3rny3npBGcDW3yUynac68wrIoY4Jx89hXZC154F2LQQNEf2SYesorjOVaV2A0GLtsPUSDrixZAUHVRyqWpnMf9Bo0bZAYb7RCi2hdmRlZBZAcZD"
+}
+
+###
+# User Login
+POST https://localhost:3000/v1/login
+Content-Type: application/json
+
+{
+  "email": "et3216@gmail.com",
+	"password": "asd!@#123eE"
+}
+
+###
+# User Logout
+POST http://localhost:3000/v1/logout
+Content-Type: application/json
+
+{
+    "email": "example@email.com",
+	"password": "password"
+}
+
+###
+# Email Verify
+GET http://localhost:3000/v1/email-verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV0MzIxNkBnbWFpbC5jb20iLCJpYXQiOjE2NDg0NTg1NTAsImV4cCI6MTY0ODQ2MjE1MH0.vjFZlZdo9Hsl5v-U0LFTlRcIAkMe54nDdeHPthrrx7U
+Content-Type: application/json
