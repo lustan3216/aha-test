@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.less';
-import { Layout, Menu, Breadcrumb, Statistic, Row, Col } from 'antd';
+import { Layout, Menu, Statistic } from 'antd';
 const { Content, Sider } = Layout;
 import { history, useDispatch, useSelector } from "umi";
 import { ModelType } from "@/models";
@@ -24,7 +24,6 @@ const IndexPage: React.FC = ({ children }) => {
 
   useEffect(() => {
     (async function () {
-      console.log(6)
       const data = await getStatistics()
       setStatistics(data)
     })()

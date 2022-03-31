@@ -21,7 +21,6 @@ const initErrors: ErrorMessagesType = {
 export default function () {
   const [form] = Form.useForm();
   const dispatch = useDispatch()
-  const [errorMessage, setErrorMessage] = useState('');
   const [errors, setErrors] = useState(initErrors);
 
   const onFinish = async (values: any) => {
@@ -34,12 +33,10 @@ export default function () {
         },
       })
       setErrors(initErrors)
-      setErrorMessage('')
       history.push('/auth/email-verify')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data?.errors)
-        setErrorMessage(error.response.data?.message)
       } else {
 
       }
@@ -52,7 +49,6 @@ export default function () {
       acc[current.name[0]] = current.errors
       return acc
     }, {})
-    setErrorMessage('')
     setErrors(errors)
   }
 

@@ -7,7 +7,6 @@ const IndexPage: React.FC = ({ children }) => {
   const location = useLocation()
   const inDashboard = /^\/dashboard/.test(location.pathname)
   const Layout = inDashboard ? DashboardLayout : DefaultLayout
-  console.log(12)
 
   return (
     <Layout>

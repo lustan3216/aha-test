@@ -24,7 +24,6 @@ export default function () {
       message.success('Update username success')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        // message.success(error.response?.message)
       } else {
         console.error(error)
         message.error('Has server error, I will fix it in a hour')
@@ -41,10 +40,6 @@ export default function () {
       className={style.form}
     >
       <Typography.Title>PROFILE</Typography.Title>
-
-      {/*<Form.Item label="Picture">*/}
-      {/*  <Avatar shape="square" size="large" src={user.picture} style={{ margin: 'auto', width: 100, height: 100 }} />*/}
-      {/*</Form.Item>*/}
 
       <Form.Item
         name="email"

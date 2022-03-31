@@ -19,7 +19,6 @@ const initErrors: ErrorMessagesType = {
 const Login: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch()
-  const [errorMessage, setErrorMessage] = useState('');
   const [errors, setErrors] = useState(initErrors);
 
   const onFinish = async (values: any) => {
@@ -32,11 +31,9 @@ const Login: React.FC = () => {
         },
       })
       setErrors(initErrors)
-      setErrorMessage('')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data?.errors)
-        setErrorMessage(error.response.data?.message)
       } else {
 
       }
@@ -67,7 +64,6 @@ const Login: React.FC = () => {
       acc[current.name[0]] = current.errors
       return acc
     }, {})
-    setErrorMessage('')
     setErrors(errors)
   }
 

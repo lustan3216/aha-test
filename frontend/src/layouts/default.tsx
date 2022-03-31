@@ -8,7 +8,7 @@ const { Content } = Layout;
 const IndexPage: React.FC = ({ children }) => {
   const hasAuth = useSelector(({ user }: ModelType) => user.tryFetched && user.isVerify)
   const { pathname } = history.location
-  console.log(44)
+
   useEffect(() => {
     if (hasAuth && /^\/auth/.test(pathname)) {
       history.push('/dashboard/profile')

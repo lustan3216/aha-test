@@ -11,7 +11,7 @@ const interval = 1000;
 
 export default function () {
   const email = useSelector((state: ModelType) => state.user.email)
-  const [timeLeft, { start, pause, resume, reset }] = useCountDown(initialTime, interval);
+  const [timeLeft, { start }] = useCountDown(initialTime, interval);
   const resend = async () => {
     start(initialTime)
     const data = await userResendVerifyEmail()

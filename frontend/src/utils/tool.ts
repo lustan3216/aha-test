@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import camelcase from "lodash.camelcase";
 
 const _toString = Object.prototype.toString
