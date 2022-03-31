@@ -8,24 +8,24 @@ const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Respo
   try {
     const Authorization = req.cookies['Authorization'] || (req.header('Authorization') ? req.header('Authorization').split('Bearer ')[1] : null);
 
-    if (Authorization) {
-      const verificationResponse = verifyAuthToken(Authorization);
-      const userId = verificationResponse.userId;
+    if (!Authorization) {
+      return next(new Exception(404, 'Authentication token missing'));
+    }
 
-      const users = new PrismaClient().user;
-      const findUser = await users.update({
-        where: { id: Number(userId) },
-        data: { activedAt: new Date() },
-      });
+    const verificationResponse = verifyAuthToken(Authorization);
+    const userId = verificationResponse.userId;
 
-      if (findUser) {
-        req.currentUser = findUser;
-        next();
-      } else {
-        next(new Exception(401, 'Wrong authentication token'));
-      }
+    const users = new PrismaClient().user;
+    const findUser = await users.update({
+      where: { id: Number(userId) },
+      data: { activedAt: new Date() },
+    });
+
+    if (findUser) {
+      req.currentUser = findUser;
+      next();
     } else {
-      next(new Exception(404, 'Authentication token missing'));
+      next(new Exception(401, 'Wrong authentication token'));
     }
   } catch (error) {
     next(new Exception(401, 'Wrong authentication token'));
