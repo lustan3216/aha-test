@@ -1,4 +1,4 @@
-import { compare, hash } from 'bcrypt';
+import { hash } from 'bcrypt';
 import { PrismaClient, User } from '@prisma/client';
 import { CreateUserDto } from '@dtos/users.dto';
 import { Exception } from '@utils/exception';
