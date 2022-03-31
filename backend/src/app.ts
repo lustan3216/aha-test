@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import Rollbar from 'rollbar';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, CREDENTIALS, ROLLBAR_KEY } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, CREDENTIALS, ROLLBAR_KEY, FRONTEND_DOMAIN } from '@config';
 import { Routes } from '@/types/routes';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
@@ -50,7 +50,7 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }));
-    this.app.use(cors({ origin: 'https://localhost:8000', credentials: CREDENTIALS }));
+    this.app.use(cors({ origin: FRONTEND_DOMAIN, credentials: CREDENTIALS }));
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());
