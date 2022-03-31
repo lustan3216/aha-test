@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { User } from '@prisma/client';
-import { RequestWithCurrentUser } from '@/types/auth.interface';
+import { RequestWithCurrentUser } from '@/types/auth';
 import EmailService from '@services/email.service';
 import { createAuthToken, verifyEmailToken } from '@utils/token';
 import IndexController from '@controllers/index.controller';

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { User } from '@prisma/client';
 import userSerializer from '@serializers/user.serializer';
-import { RequestWithCurrentUser } from '@/types/auth.interface';
+import { RequestWithCurrentUser } from '@/types/auth';
 import { compare, hash } from 'bcrypt';
 import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';

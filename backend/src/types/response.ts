@@ -1,19 +1,9 @@
 import { Request } from 'express';
 import { User } from '@prisma/client';
-import * as core from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 
-export interface UserTokenType {
-  userId: number;
-}
-
-export interface EmailTokenType {
-  email: string;
-}
-
-export interface TokenData {
-  token: string;
-  expiresIn: number;
+export interface ErrorMap {
+  [key: string]: string[];
 }
 
 export interface RequestWithCurrentUser<Q = any> extends Omit<Request, 'query'> {

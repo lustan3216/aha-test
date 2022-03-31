@@ -1,4 +1,4 @@
-import { ErrorMap } from '@/types/response.interface';
+import { ErrorMap } from '@/types/response';
 
 export class Exception {
   status: number;

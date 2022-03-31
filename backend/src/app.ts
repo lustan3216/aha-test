@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, CREDENTIALS } from '@config';
-import { Routes } from '@/types/routes.interface';
+import { Routes } from '@/types/routes';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 

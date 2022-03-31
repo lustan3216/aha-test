@@ -1,4 +1,4 @@
-import { UserTokenType, EmailTokenType } from '@/types/auth.interface';
+import { UserTokenType, EmailTokenType } from '@/types/auth';
 import { SECRET_KEY } from '@config';
 import { sign, verify } from 'jsonwebtoken';
 

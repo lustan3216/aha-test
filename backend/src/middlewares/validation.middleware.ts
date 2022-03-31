@@ -2,7 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import { RequestHandler } from 'express';
 import { Exception } from '@utils/exception';
-import { ErrorMap } from '@/types/response.interface';
+import { ErrorMap } from '@/types/response';
 
 const validationMiddleware = (
   type: any,

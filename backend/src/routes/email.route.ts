@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import EmailController from '@controllers/email.controller';
-import { Routes } from '@/types/routes.interface';
+import { Routes } from '@/types/routes';
 import tokenMiddleware from '@middlewares/token.middleware';
 
 class AuthRoute implements Routes {

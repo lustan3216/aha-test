@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import UsersController from '@controllers/users.controller';
 import { PasswordResetDto, UpdateUserDto } from '@dtos/users.dto';
-import { Routes } from '@/types/routes.interface';
+import { Routes } from '@/types/routes';
 import tokenWithVerifyMiddleware from '@middlewares/tokenWithVerify.middleware';
 import validationMiddleware from '@middlewares/validation.middleware';
 

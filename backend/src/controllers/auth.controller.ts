@@ -3,9 +3,9 @@ import { compare, hash } from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import { User } from '@prisma/client';
 import { CreateUserDto } from '@dtos/users.dto';
-import { RequestWithCurrentUser, FacebookProfile, GoogleProfile } from '@/types/auth.interface';
+import { RequestWithCurrentUser, FacebookProfile, GoogleProfile } from '@/types/response';
 import { createAuthToken } from '@utils/token';
-import { Provider } from '@/types/provider.enum';
+import { Provider } from '@/types/user';
 import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 

@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { Exception } from '@utils/exception';
-import { RequestWithCurrentUser } from '@/types/auth.interface';
+import { RequestWithCurrentUser } from '@/types/auth';
 import { verifyAuthToken } from '@/utils/token';
 
 const tokenWithVerifyMiddleware = async (req: RequestWithCurrentUser, res: Response, next: NextFunction) => {
