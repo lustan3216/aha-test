@@ -9,7 +9,10 @@ const baseURL = process.env.NODE_ENV === 'production'
                 : 'https://localhost:3000'
 
 // const instance = axios.create({ baseURL: 'http://localhost:3000' })
-const instance = axios.create({ baseURL })
+const instance = axios.create({
+  baseURL,
+  withCredentials: true
+})
 
 instance.interceptors.request.use(
   (config) => {
