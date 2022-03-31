@@ -131,7 +131,7 @@ export default class AuthController extends IndexController {
 
   logOut = async (req: RequestWithCurrentUser, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: User = req.currentUser;
+      const userData = req.currentUser;
 
       const findUser: User = await this.usersClient.findFirst({ where: { email: userData.email, password: userData.password } });
       if (!findUser) {
