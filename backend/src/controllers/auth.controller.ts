@@ -11,6 +11,7 @@ import { Provider } from '@/types/provider.enum';
 import { isEmpty } from '@utils/util';
 import { Exception } from '@utils/exception';
 import IndexController from '@controllers/index.controller';
+import { FRONTEND_DOMAIN } from '@config';
 
 const EXPIRES_IN = 60 * 60 * 1000;
 
@@ -151,7 +152,7 @@ export default class AuthController extends IndexController {
       const token = createAuthToken(user.id, EXPIRES_IN);
 
       res.cookie('Authorization', token, { maxAge: EXPIRES_IN, httpOnly: true, secure: true });
-      res.redirect('https://localhost:8000/dashboard/profile');
+      res.redirect(`${FRONTEND_DOMAIN}/dashboard/profile`);
     } catch (error) {
       next(error);
     }
