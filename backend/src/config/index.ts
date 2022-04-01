@@ -3,6 +3,8 @@ const envName = process.env.NODE_ENV === 'production' ? '.production' : '';
 config({path: `.env${envName}.local`});
 
 export const CREDENTIALS = process.env.CREDENTIALS === 'true';
+export const COOKIES_SECURE = process.env.NODE_ENV === 'production';
+export const COOKIES_EXPIRES_IN = 60 * 60;
 export const {
   ROLLBAR_KEY,
   FRONTEND_DOMAIN,

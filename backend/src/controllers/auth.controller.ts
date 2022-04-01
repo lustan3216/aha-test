@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {compare, hash} from 'bcrypt';
-import {NODE_ENV} from '@config';
+import {COOKIES_SECURE, COOKIES_EXPIRES_IN} from '@config';
 import {NextFunction, Request, Response} from 'express';
 import {User} from '@prisma/client';
 import {CreateUserDto} from '@dtos/users.dto';
@@ -13,9 +13,6 @@ import {createAuthToken} from '@utils/token';
 import {Provider} from '@/types/user';
 import {Exception} from '@utils/exception';
 import IndexController from '@controllers/index.controller';
-
-const EXPIRES_IN = 60 * 60;
-const secure = NODE_ENV === 'production';
 
 export default class AuthController extends IndexController {
   signUp = async (
@@ -42,12 +39,12 @@ export default class AuthController extends IndexController {
         data: {...userData, password: hashedPassword},
       });
       this.emailService.sendVerifyEmail(email);
-      const token = createAuthToken(createUserData.id, EXPIRES_IN);
+      const token = createAuthToken(createUserData.id, COOKIES_EXPIRES_IN);
 
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN * 1000,
+        maxAge: COOKIES_EXPIRES_IN * 1000,
         httpOnly: true,
-        secure,
+        secure: COOKIES_SECURE,
       });
       res.status(200).json({token});
     } catch (error) {
@@ -100,11 +97,11 @@ export default class AuthController extends IndexController {
         },
       });
       await this.emailService.sendVerifyEmail(req.currentUser.email);
-      const token = createAuthToken(findUser.id, EXPIRES_IN);
+      const token = createAuthToken(findUser.id, COOKIES_EXPIRES_IN);
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN * 1000,
+        maxAge: COOKIES_EXPIRES_IN * 1000,
         httpOnly: true,
-        secure,
+        secure: COOKIES_SECURE,
       });
       res.status(200).json({token});
     } catch (error) {
@@ -139,11 +136,11 @@ export default class AuthController extends IndexController {
         },
       });
 
-      const token = createAuthToken(user.id, EXPIRES_IN);
+      const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN * 1000,
+        maxAge: COOKIES_EXPIRES_IN * 1000,
         httpOnly: true,
-        secure,
+        secure: COOKIES_SECURE,
       });
       res.status(200).json({token});
     } catch (error) {
@@ -179,11 +176,11 @@ export default class AuthController extends IndexController {
         },
       });
 
-      const token = createAuthToken(user.id, EXPIRES_IN);
+      const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN * 1000,
+        maxAge: COOKIES_EXPIRES_IN * 1000,
         httpOnly: true,
-        secure,
+        secure: COOKIES_SECURE,
       });
       res.status(200).json({token});
     } catch (error) {
