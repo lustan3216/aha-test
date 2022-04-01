@@ -2,7 +2,6 @@ import {Router} from 'express';
 import StatisticsController from '@controllers/statistics.controller';
 import {Routes} from '@/types/routes';
 import tokenWithVerifyMiddleware from '@middlewares/tokenWithVerify.middleware';
-import userVerifyMiddleware from '@middlewares/token.middleware';
 
 class IndexRoute implements Routes {
   path = '/';
@@ -17,7 +16,6 @@ class IndexRoute implements Routes {
     this.router.get(
       '/statistics',
       tokenWithVerifyMiddleware,
-      userVerifyMiddleware,
       this.statisticsController.statistics
     );
   }
