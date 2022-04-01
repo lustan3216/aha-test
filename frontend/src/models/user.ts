@@ -76,6 +76,7 @@ export default <UserModelType>{
         yield put({type: 'userMeGet'});
       } catch (e) {
         yield put({type: 'logout'});
+        throw e;
       }
     },
     *resetPassword({payload}, {call}) {
