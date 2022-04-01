@@ -2,7 +2,7 @@
   "name": "@aha-test/frontend",
   "version": "0.0.1",
   "scripts": {
-    "dev": "NODE_ENV=development umi dev",
+    "dev": "PORT=8000 NODE_ENV=development umi dev",
     "build": "NODE_ENV=production umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
