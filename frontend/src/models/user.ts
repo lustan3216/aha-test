@@ -6,14 +6,13 @@ import {
   userGoogleLogin,
   userUpdate,
   userResetPassword,
+  userLogout,
 } from '@/services/user';
-import Cookie from 'js-cookie';
 import {AccountProvider} from '@/types/user';
 
 export type UserStateType = {
   [key: string]: any;
   isVerify: boolean;
-  tryFetched: boolean;
   email: Nullable<string>;
   provider: AccountProvider;
   username: Nullable<string>;
@@ -23,7 +22,6 @@ export type UserStateType = {
 export type UserModelType = ModelType<UserStateType>;
 
 const initState = (): UserStateType => ({
-  tryFetched: false,
   email: null,
   isVerify: false,
   provider: AccountProvider.Local,
@@ -35,9 +33,6 @@ export default <UserModelType>{
   namespace: 'user',
   state: initState(),
   reducers: {
-    tryFetch(state) {
-      state.tryFetched = true;
-    },
     setUser(state, {payload}) {
       state.email = payload.email;
       state.isVerify = payload.isVerify;
@@ -55,25 +50,16 @@ export default <UserModelType>{
   },
   effects: {
     *userUpdate({payload}, {call, put}) {
-      try {
-        const {data} = yield call(userUpdate, payload);
-        yield put({type: 'setUser', payload: data});
-      } finally {
-        yield put({type: 'tryFetch'});
-      }
+      const {data} = yield call(userUpdate, payload);
+      yield put({type: 'setUser', payload: data});
     },
     *userMeGet(action, {call, put}) {
-      try {
-        const {data} = yield call(userMe);
-        yield put({type: 'setUser', payload: data});
-      } finally {
-        yield put({type: 'tryFetch'});
-      }
+      const {data} = yield call(userMe);
+      yield put({type: 'setUser', payload: data});
     },
     *signUp({payload}, {call, put}) {
       try {
         yield call(userSignUp, payload);
-        yield put({type: 'userMeGet'});
       } catch (e) {
         yield put({type: 'logout'});
         throw e;
@@ -101,8 +87,8 @@ export default <UserModelType>{
       yield call(userGoogleLogin, payload);
       yield put({type: 'userMeGet'});
     },
-    *logout(action, {put}) {
-      Cookie.remove('Authorization');
+    *logout(action, {call, put}) {
+      yield call(userLogout);
       yield put({type: 'cleanUser'});
     },
   },

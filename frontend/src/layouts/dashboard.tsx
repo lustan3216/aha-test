@@ -2,15 +2,15 @@ import React, {useEffect, useState} from 'react';
 import styles from './index.less';
 import {Layout, Menu, Statistic} from 'antd';
 const {Content, Sider} = Layout;
-import {history, useDispatch, useSelector} from 'umi';
+import {history, useSelector} from 'umi';
 import {ModelType} from '@/models';
 import {getStatistics} from '@/services/statistics';
+import Logout from '@/components/Logout';
 
 const IndexPage: React.FC = ({children}) => {
-  const dispatch = useDispatch();
   const {pathname} = history.location;
   const noAuth = useSelector(
-    ({user}: ModelType) => user.tryFetched && !user.isVerify
+    ({user}: ModelType) => user.email && !user.isVerify
   );
   const [statistics, setStatistics] = useState({
     total: 0,

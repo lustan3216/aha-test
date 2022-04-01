@@ -7,7 +7,7 @@ const {Content} = Layout;
 
 const IndexPage: React.FC = ({children}) => {
   const hasAuth = useSelector(
-    ({user}: ModelType) => user.tryFetched && user.isVerify
+    ({user}: ModelType) => user.email && user.isVerify
   );
   const {pathname} = history.location;
 
