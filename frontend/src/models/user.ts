@@ -61,7 +61,7 @@ export default <UserModelType>{
     *signUp({payload}, {call, put}) {
       try {
         yield call(userSignUp, payload);
-        yield call(userResendVerifyEmail);
+        call(userResendVerifyEmail);
       } catch (e) {
         yield put({type: 'logout'});
         throw e;
