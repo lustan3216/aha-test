@@ -13,6 +13,7 @@ import {createAuthToken} from '@utils/token';
 import {Provider} from '@/types/user';
 import {Exception} from '@utils/exception';
 import IndexController from '@controllers/index.controller';
+import userSerializer from '@serializers/user.serializer';
 
 const EXPIRES_IN = 60 * 60;
 const secure = NODE_ENV === 'production';
@@ -145,7 +146,7 @@ export default class AuthController extends IndexController {
         httpOnly: true,
         secure,
       });
-      res.status(200).json({token});
+      res.status(200).json({data: userSerializer(user)});
     } catch (error) {
       next(error);
     }
@@ -185,7 +186,7 @@ export default class AuthController extends IndexController {
         httpOnly: true,
         secure,
       });
-      res.status(200).json({token});
+      res.status(200).json({data: userSerializer(user)});
     } catch (error) {
       next(error);
     }

@@ -42,19 +42,35 @@ const Login: React.FC = () => {
 
   function responseGoogle(payload: any) {
     if (payload.accessToken) {
-      dispatch({
-        type: 'user/loginGoogle',
-        payload: {accessToken: payload.accessToken},
-      });
+      try {
+        dispatch({
+          type: 'user/loginGoogle',
+          payload: {accessToken: payload.accessToken},
+        });
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          setErrors(error.response.data?.errors);
+        } else {
+          message.error(ERROR_MESSAGE);
+        }
+      }
     }
   }
 
   function responseFacebook(payload: any) {
     if (payload.accessToken) {
-      dispatch({
-        type: 'user/loginFacebook',
-        payload: {accessToken: payload.accessToken},
-      });
+      try {
+        dispatch({
+          type: 'user/loginFacebook',
+          payload: {accessToken: payload.accessToken},
+        });
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          setErrors(error.response.data?.errors);
+        } else {
+          message.error(ERROR_MESSAGE);
+        }
+      }
     }
   }
 
@@ -75,6 +91,10 @@ const Login: React.FC = () => {
       labelAlign="left"
       className={style.box}
       onFinish={onFinish}
+      initialValues={{
+        email: 'et3216@gmail.com',
+        password: 'asd!@#123eE',
+      }}
       onFieldsChange={onFieldsChange}
     >
       <Typography.Title>LOG IN</Typography.Title>

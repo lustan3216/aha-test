@@ -64,11 +64,8 @@ export default <UserModelType>{
     },
     *userMeGet(action, {call, put}) {
       try {
-        const token = Cookie.get('Authorization');
-        if (token) {
-          const {data} = yield call(userMe);
-          yield put({type: 'setUser', payload: data});
-        }
+        const {data} = yield call(userMe);
+        yield put({type: 'setUser', payload: data});
       } finally {
         yield put({type: 'tryFetch'});
       }
@@ -90,17 +87,26 @@ export default <UserModelType>{
         yield put({type: 'userMeGet'});
       } catch (e) {
         yield put({type: 'logout'});
+        throw e;
       } finally {
         yield put({type: 'tryFetch'});
       }
     },
     *loginFacebook({payload}, {call, put}) {
-      yield call(userFacebookLogin, payload);
-      yield put({type: 'userMeGet'});
+      try {
+        const {data} = yield call(userFacebookLogin, payload);
+        yield put({type: 'setUser', payload: data});
+      } finally {
+        yield put({type: 'tryFetch'});
+      }
     },
     *loginGoogle({payload}, {call, put}) {
-      yield call(userGoogleLogin, payload);
-      yield put({type: 'userMeGet'});
+      try {
+        const {data} = yield call(userGoogleLogin, payload);
+        yield put({type: 'setUser', payload: data});
+      } finally {
+        yield put({type: 'tryFetch'});
+      }
     },
     *logout(action, {put}) {
       Cookie.remove('Authorization');
