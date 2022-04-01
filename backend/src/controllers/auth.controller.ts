@@ -46,7 +46,7 @@ export default class AuthController extends IndexController {
       const token = createAuthToken(createUserData.id, EXPIRES_IN);
 
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN,
+        maxAge: EXPIRES_IN * 1000,
         httpOnly: true,
         secure,
       });
@@ -103,7 +103,7 @@ export default class AuthController extends IndexController {
 
       const token = createAuthToken(findUser.id, EXPIRES_IN);
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN,
+        maxAge: EXPIRES_IN * 1000,
         httpOnly: true,
         secure,
       });
@@ -142,7 +142,7 @@ export default class AuthController extends IndexController {
 
       const token = createAuthToken(user.id, EXPIRES_IN);
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN,
+        maxAge: EXPIRES_IN * 1000,
         httpOnly: true,
         secure,
       });
@@ -182,7 +182,7 @@ export default class AuthController extends IndexController {
 
       const token = createAuthToken(user.id, EXPIRES_IN);
       res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN,
+        maxAge: EXPIRES_IN * 1000,
         httpOnly: true,
         secure,
       });
