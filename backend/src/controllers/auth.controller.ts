@@ -4,11 +4,7 @@ import {COOKIES_SECURE, COOKIES_EXPIRES_IN} from '@config';
 import {NextFunction, Request, Response} from 'express';
 import {User} from '@prisma/client';
 import {CreateUserDto} from '@dtos/users.dto';
-import {
-  RequestWithCurrentUser,
-  FacebookProfile,
-  GoogleProfile,
-} from '@/types/response';
+import {FacebookProfile, GoogleProfile} from '@/types/response';
 import {createAuthToken} from '@utils/token';
 import {Provider} from '@/types/user';
 import {Exception} from '@utils/exception';
@@ -194,7 +190,7 @@ export default class AuthController extends IndexController {
   };
 
   logOut = async (
-    req: RequestWithCurrentUser,
+    req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {

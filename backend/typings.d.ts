@@ -1,10 +1,10 @@
-declare namespace Express {
-  export interface Request {
-    [key: string]: any;
-    currentUser: any;
-  }
-}
+type Page = {
+  page?: number;
+};
 
-declare interface Asd {
-  asd: number;
+declare namespace Express {
+  interface Request {
+    currentUser: import('@prisma/client').User;
+    query: Page;
+  }
 }

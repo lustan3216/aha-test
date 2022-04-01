@@ -1,11 +1,10 @@
-import {NextFunction, Response} from 'express';
+import {NextFunction, Response, Request} from 'express';
 import {PrismaClient} from '@prisma/client';
 import {Exception} from '@utils/exception';
-import {RequestWithCurrentUser} from '@/types/response';
 import {verifyAuthToken} from '@/utils/token';
 
 const tokenWithVerifyMiddleware = async (
-  req: RequestWithCurrentUser,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

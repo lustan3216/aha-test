@@ -35,11 +35,7 @@ class AuthRoute implements Routes {
       validationMiddleware(AccessTokenDto, 'body'),
       this.authController.logInFacebook
     );
-    this.router.post(
-      '/logout',
-      tokenMiddleware,
-      this.authController.logOut
-    );
+    this.router.post('/logout', tokenMiddleware, this.authController.logOut);
   }
 }
 

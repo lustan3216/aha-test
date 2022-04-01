@@ -1,29 +1,29 @@
-import {NextFunction, Response} from 'express';
+import {NextFunction, Response, Request} from 'express';
 import {User} from '@prisma/client';
 import userSerializer from '@serializers/user.serializer';
-import {RequestWithCurrentUser} from '@/types/response';
 import {compare, hash} from 'bcrypt';
 import {Exception} from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 
 export default class UsersController extends IndexController {
   getUsers = async (
-    req: RequestWithCurrentUser<{page: number}>,
+    req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
+      const page = req.query.page || 0;
       const per = 10;
-      const page = req.query.page - 1 || 0;
+      const currentPage = (page as number) - 1;
       const allUser: User[] = await this.usersClient.findMany({
-        skip: per * page,
+        skip: per * currentPage,
         take: per,
       });
       const total = await this.usersClient.count();
 
       res.status(200).json({
         data: allUser.map(user => userSerializer(user)),
-        meta: {currentPage: page + 1, total},
+        meta: {currentPage: currentPage + 1, total},
       });
     } catch (error) {
       next(error);
@@ -31,7 +31,7 @@ export default class UsersController extends IndexController {
   };
 
   userMeGe = async (
-    req: RequestWithCurrentUser,
+    req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
@@ -43,7 +43,7 @@ export default class UsersController extends IndexController {
   };
 
   updateUser = async (
-    req: RequestWithCurrentUser,
+    req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
@@ -61,7 +61,7 @@ export default class UsersController extends IndexController {
   };
 
   resetPassword = async (
-    req: RequestWithCurrentUser,
+    req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
