@@ -62,7 +62,7 @@ export default <UserModelType>{
         yield put({type: 'tryFetch'});
       }
     },
-    *userMeGe(action, {call, put}) {
+    *userMeGet(action, {call, put}) {
       try {
         const token = Cookie.get('Authorization');
         if (token) {
@@ -76,7 +76,7 @@ export default <UserModelType>{
     *signUp({payload}, {call, put}) {
       try {
         yield call(userSignUp, payload);
-        yield put({type: 'userMeGe'});
+        yield put({type: 'userMeGet'});
       } catch (e) {
         yield put({type: 'logout'});
       }
@@ -87,7 +87,7 @@ export default <UserModelType>{
     *login({payload}, {call, put}) {
       try {
         yield call(userLogin, payload);
-        yield put({type: 'userMeGe'});
+        yield put({type: 'userMeGet'});
       } catch (e) {
         yield put({type: 'logout'});
       } finally {
@@ -96,11 +96,11 @@ export default <UserModelType>{
     },
     *loginFacebook({payload}, {call, put}) {
       yield call(userFacebookLogin, payload);
-      yield put({type: 'userMeGe'});
+      yield put({type: 'userMeGet'});
     },
     *loginGoogle({payload}, {call, put}) {
       yield call(userGoogleLogin, payload);
-      yield put({type: 'userMeGe'});
+      yield put({type: 'userMeGet'});
     },
     *logout(action, {put}) {
       Cookie.remove('Authorization');
@@ -109,7 +109,7 @@ export default <UserModelType>{
   },
   subscriptions: {
     setup({dispatch}) {
-      dispatch({type: 'userMeGe'});
+      dispatch({type: 'userMeGet'});
     },
   },
 };
