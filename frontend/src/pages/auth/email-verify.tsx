@@ -1,5 +1,5 @@
-import React from 'react';
-import {useSelector} from 'umi';
+import React, {useEffect, useState} from 'react';
+import {useSelector, history} from 'umi';
 import {ModelType} from '@/models';
 import style from './auth.less';
 import {Typography, Button, message} from 'antd';
@@ -11,6 +11,7 @@ const interval = 1000;
 
 export default function () {
   const email = useSelector((state: ModelType) => state.user.email);
+  const [sentTo, setSentTo] = useState(null);
   const [timeLeft, {start}] = useCountDown(initialTime, interval);
   const resend = async () => {
     start(initialTime);
@@ -21,10 +22,22 @@ export default function () {
     );
   };
 
+  useEffect(() => {
+    const email = history.location.state?.sentTo;
+    if (history.location.state?.sentTo) {
+      setSentTo(email);
+      start(initialTime);
+    }
+  }, []);
+
+  const text = sentTo
+    ? `We sent a verify email to ${sentTo}, please check!`
+    : 'Your account have not verified yet!';
+
   return (
     <div className={style.box}>
       <Typography.Title>Email Verify</Typography.Title>
-
+      <p>{text}</p>
       <Button disabled={timeLeft !== 0} onClick={resend}>
         Resend Email Verification {timeLeft === 0 ? null : timeLeft / 1000}
       </Button>
@@ -33,5 +46,3 @@ export default function () {
     </div>
   );
 }
-
-// export default SignUp

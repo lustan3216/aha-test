@@ -29,10 +29,11 @@ export default function () {
         },
       });
       setErrors(initErrors);
-      message.success(
-        `We sent a verify email to ${values.email}, please check!`
-      );
-      history.push('/auth/email-verify');
+
+      history.push({
+        pathname: '/auth/email-verify',
+        state: {sentTo: values.email},
+      });
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setErrors(error.response.data?.errors);
