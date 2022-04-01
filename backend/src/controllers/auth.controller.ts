@@ -62,15 +62,15 @@ export default class AuthController extends IndexController {
   ): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
-
+      const email = userData.email;
       const findUser = await this.usersClient.findUnique({
-        where: {email: userData.email},
+        where: {email},
       });
 
       if (!findUser) {
         return next(
           new Exception(400, {
-            email: [`You're email ${userData.email} not found`],
+            email: [`You're email ${email} not found`],
           })
         );
       }
@@ -92,14 +92,14 @@ export default class AuthController extends IndexController {
       }
 
       await this.usersClient.update({
-        where: {email: userData.email},
+        where: {email},
         data: {
           loginCount: {
             increment: 1,
           },
         },
       });
-      await this.emailService.sendVerifyEmail(req.currentUser.email);
+      await this.emailService.sendVerifyEmail(email);
       const token = createAuthToken(findUser.id, COOKIES_EXPIRES_IN);
       res.cookie('Authorization', token, {
         maxAge: COOKIES_EXPIRES_IN * 1000,
