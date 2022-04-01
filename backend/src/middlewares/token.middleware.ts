@@ -17,7 +17,7 @@ const tokenWithVerifyMiddleware = async (
     const Authorization = req.cookies['Authorization'] || header;
 
     if (!Authorization) {
-      return next(new Exception(404, 'Authentication token missing'));
+      return next(new Exception(401, 'Authentication token missing'));
     }
 
     const verificationResponse = verifyAuthToken(Authorization);

@@ -35,7 +35,7 @@ const tokenWithVerifyMiddleware = async (
         next(new Exception(401, 'Wrong authentication token'));
       }
     } else {
-      next(new Exception(404, 'Authentication token missing'));
+      next(new Exception(401, 'Authentication token missing'));
     }
   } catch (error) {
     console.log(error);
