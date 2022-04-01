@@ -26,9 +26,8 @@ const tokenWithVerifyMiddleware = async (
     const userId = verificationResponse.userId;
 
     const users = new PrismaClient().user;
-    const findUser = await users.update({
+    const findUser = await users.findUnique({
       where: {id: Number(userId)},
-      data: {activedAt: new Date()},
     });
 
     if (findUser) {
