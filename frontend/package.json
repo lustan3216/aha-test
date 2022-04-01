@@ -38,6 +38,7 @@
     "react-dom": "17.x",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
+    "rollbar": "^2.24.1",
     "umi": "^3.5.21"
   },
   "devDependencies": {
