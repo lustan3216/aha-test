@@ -1,5 +1,6 @@
 import {config} from 'dotenv';
-config({path: `.env.${process.env.NODE_ENV || ''}.local`});
+const envName = process.env.NODE_ENV === 'production' ? '.production' : '';
+config({path: `.env${envName}.local`});
 
 export const CREDENTIALS = process.env.CREDENTIALS === 'true';
 export const {
