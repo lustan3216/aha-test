@@ -32,13 +32,15 @@ const tokenWithVerifyMiddleware = async (
         req.currentUser = findUser;
         next();
       } else {
+        res.cookie('Authorization', '', {maxAge: 0});
         next(new Exception(401, 'Wrong authentication token'));
       }
     } else {
+      res.cookie('Authorization', '', {maxAge: 0});
       next(new Exception(401, 'Authentication token missing'));
     }
   } catch (error) {
-    console.log(error);
+    res.cookie('Authorization', '', {maxAge: 0});
     next(new Exception(401, 'Wrong authentication token'));
   }
 };
