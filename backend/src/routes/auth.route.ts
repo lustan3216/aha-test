@@ -2,7 +2,7 @@ import {Router} from 'express';
 import AuthController from '@controllers/auth.controller';
 import {CreateUserDto, AccessTokenDto} from '@dtos/users.dto';
 import {Routes} from '@/types/routes';
-import tokenWithVerifyMiddleware from '@middlewares/tokenWithVerify.middleware';
+import tokenMiddleware from '@middlewares/token.middleware';
 import validationMiddleware from '@middlewares/validation.middleware';
 
 class AuthRoute implements Routes {
@@ -37,7 +37,7 @@ class AuthRoute implements Routes {
     );
     this.router.post(
       '/logout',
-      tokenWithVerifyMiddleware,
+      tokenMiddleware,
       this.authController.logOut
     );
   }
