@@ -7,5 +7,5 @@ type Statistics = {
 };
 
 export function getStatistics(): Promise<Statistics> {
-  return request.get('/v1/statistics', {withCredentials: true});
+  return request.get('/v1/statistics');
 }
