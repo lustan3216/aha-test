@@ -1,9 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import IndexController from '@/controllers/index.controller';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
-dayjs.extend(utc);
 
 export default class StatisticsController extends IndexController {
   statistics = async (
@@ -16,14 +13,14 @@ export default class StatisticsController extends IndexController {
       const todayActiveUser = await this.usersClient.count({
         where: {
           activedAt: {
-            gte: dayjs.utc().subtract(1, 'day').format(),
+            gte: dayjs().subtract(1, 'day').format(),
           },
         },
       });
       const averageIn7 = await this.usersClient.count({
         where: {
           activedAt: {
-            gte: dayjs.utc().subtract(7, 'day').format(),
+            gte: dayjs().subtract(7, 'day').format(),
           },
         },
       });
