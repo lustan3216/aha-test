@@ -93,20 +93,12 @@ export default <UserModelType>{
       }
     },
     *loginFacebook({payload}, {call, put}) {
-      try {
-        const {data} = yield call(userFacebookLogin, payload);
-        yield put({type: 'setUser', payload: data});
-      } finally {
-        yield put({type: 'tryFetch'});
-      }
+      yield call(userFacebookLogin, payload);
+      yield put({type: 'userMeGet'});
     },
     *loginGoogle({payload}, {call, put}) {
-      try {
-        const {data} = yield call(userGoogleLogin, payload);
-        yield put({type: 'setUser', payload: data});
-      } finally {
-        yield put({type: 'tryFetch'});
-      }
+      yield call(userGoogleLogin, payload);
+      yield put({type: 'userMeGet'});
     },
     *logout(action, {put}) {
       Cookie.remove('Authorization');

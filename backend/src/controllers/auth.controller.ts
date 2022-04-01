@@ -146,7 +146,7 @@ export default class AuthController extends IndexController {
         httpOnly: true,
         secure,
       });
-      res.status(200).json({data: userSerializer(user)});
+      res.status(200).json({token});
     } catch (error) {
       next(error);
     }
@@ -186,7 +186,7 @@ export default class AuthController extends IndexController {
         httpOnly: true,
         secure,
       });
-      res.status(200).json({data: userSerializer(user)});
+      res.status(200).json({token});
     } catch (error) {
       next(error);
     }
