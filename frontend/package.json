@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "PORT=8000 NODE_ENV=development yarn umi dev",
-    "build": "NODE_ENV=production yarn umi build",
+    "build": ". ./asd.sh",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "clean": "gts clean",
