@@ -91,14 +91,16 @@ export default class AuthController extends IndexController {
         next(new Exception(400, {password: ["You're password not matching"]}));
       }
 
-      await this.usersClient.update({
-        where: {email},
-        data: {
-          loginCount: {
-            increment: 1,
+      if (findUser.isVerify) {
+        await this.usersClient.update({
+          where: {email},
+          data: {
+            loginCount: {
+              increment: 1,
+            },
           },
-        },
-      });
+        });
+      }
 
       const token = createAuthToken(findUser.id, COOKIES_EXPIRES_IN);
       res.cookie('Authorization', token, {
