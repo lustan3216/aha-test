@@ -13,7 +13,6 @@ import {createAuthToken} from '@utils/token';
 import {Provider} from '@/types/user';
 import {Exception} from '@utils/exception';
 import IndexController from '@controllers/index.controller';
-import userSerializer from '@serializers/user.serializer';
 
 const EXPIRES_IN = 60 * 60;
 const secure = NODE_ENV === 'production';
