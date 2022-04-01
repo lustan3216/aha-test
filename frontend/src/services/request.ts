@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {objectCamelcase} from '@/utils/tool';
 import {message} from 'antd';
-import {history} from 'umi';
+import {history, getDvaApp} from 'umi';
 import {ERROR_MESSAGE} from '@/const';
 
 const baseURL =
@@ -28,12 +28,14 @@ instance.interceptors.response.use(
   response => {
     return objectCamelcase(response.data);
   },
-  error => {
+  async (error) => {
     if (!error.response) throw error;
     const {status, data} = error.response;
     const {pathname} = history.location;
 
     if (status === 401) {
+      const dvaApp = getDvaApp();
+      dvaApp._store.dispatch({type: 'user/logout'});
       if (data.message === 'Need Verify') {
         message.error('Your account have not verified yet!');
         history.push('/auth/email-verify');
