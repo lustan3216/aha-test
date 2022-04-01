@@ -78,7 +78,7 @@ export default class AuthController extends IndexController {
       if (!findUser.password && findUser.provider !== Provider.LOCAL) {
         return next(
           new Exception(400, {
-            email: [`You should login with ${findUser.provider}`],
+            email: [`This email signed up with ${findUser.provider}`],
           })
         );
       }
