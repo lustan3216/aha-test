@@ -41,7 +41,7 @@
     "typings.d.ts",
     "src/**/*.ts",
     "src/**/*.json",
-    ".env"
+    ".env.local"
   ],
   "exclude": [
     "dist",
