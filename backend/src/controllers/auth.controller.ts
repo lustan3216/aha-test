@@ -22,21 +22,24 @@ export default class AuthController extends IndexController {
   ): Promise<void> => {
     try {
       const userData: CreateUserDto = req.body;
-
+      const email = userData.email;
       const findUser = await this.usersClient.findUnique({
-        where: {email: userData.email},
+        where: {email},
       });
-      if (findUser) {
+
+      if (findUser && findUser.isVerify) {
         next(
           new Exception(400, {
-            email: [`This email ${userData.email} already exists`],
+            email: [`This email ${email} already exists`],
           })
         );
       }
 
       const hashedPassword = await hash(userData.password, 10);
-      const createUserData: User = await this.usersClient.create({
-        data: {...userData, password: hashedPassword},
+      const createUserData: User = await this.usersClient.upsert({
+        where: {email: email},
+        update: {email: email, password: hashedPassword},
+        create: {email: email, password: hashedPassword},
       });
       this.emailService.sendVerifyEmail(email);
       const token = createAuthToken(createUserData.id, COOKIES_EXPIRES_IN);
