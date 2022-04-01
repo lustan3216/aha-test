@@ -28,18 +28,17 @@ instance.interceptors.response.use(
   response => {
     return objectCamelcase(response.data);
   },
-  async (error) => {
+  async error => {
     if (!error.response) throw error;
     const {status, data} = error.response;
     const {pathname} = history.location;
 
     if (status === 401) {
-      const dvaApp = getDvaApp();
-      dvaApp._store.dispatch({type: 'user/logout'});
       if (data.message === 'Need Verify') {
-        message.error('Your account have not verified yet!');
         history.push('/auth/email-verify');
       } else {
+        const dvaApp = getDvaApp();
+        dvaApp._store.dispatch({type: 'user/cleanUser'});
         if (pathname !== '/auth/login') {
           history.push('/auth/login');
         }

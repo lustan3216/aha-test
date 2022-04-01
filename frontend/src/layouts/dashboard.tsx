@@ -56,11 +56,8 @@ const IndexPage: React.FC = ({children}) => {
             User List
           </Menu.Item>
 
-          <Menu.Item
-            key="logout"
-            onClick={() => dispatch({type: 'user/logout'})}
-          >
-            Log Out
+          <Menu.Item key="logout">
+            <Logout />
           </Menu.Item>
 
           <Menu.Item

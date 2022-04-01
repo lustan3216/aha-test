@@ -5,8 +5,8 @@ import style from './auth.less';
 import {Typography, Button, message} from 'antd';
 import {userResendVerifyEmail} from '@/services/user';
 import useCountDown from 'react-countdown-hook';
-
-const initialTime = 60 * 1000; // initial time in milliseconds, defaults to 60000
+import Logout from '@/components/Logout';
+const initialTime = 15 * 1000; // initial time in milliseconds, defaults to 60000
 const interval = 1000;
 
 export default function () {
@@ -28,6 +28,8 @@ export default function () {
       <Button disabled={timeLeft !== 0} onClick={resend}>
         Resend Email Verification {timeLeft === 0 ? null : timeLeft / 1000}
       </Button>
+
+      <Logout />
     </div>
   );
 }

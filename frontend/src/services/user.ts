@@ -61,3 +61,7 @@ export function userResetPassword({
 export function userResendVerifyEmail(): Promise<{email: string}> {
   return request.post('/v1/email-verify', {});
 }
+
+export function userLogout() {
+  return request.post('/v1/logout', {});
+}
