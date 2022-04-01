@@ -38,8 +38,12 @@ instance.interceptors.response.use(
         message.error('Your account have not verified yet!');
         history.push('/auth/email-verify');
       } else {
-        message.error(data.message);
-        if (pathname !== '/auth/login') history.push('/auth/login');
+        if (pathname !== '/auth/login') {
+          history.push('/auth/login');
+        }
+        if (/^\/dashboard/.test(pathname)) {
+          message.error(data.message);
+        }
       }
     } else if (status > 500) {
       message.error(ERROR_MESSAGE);
