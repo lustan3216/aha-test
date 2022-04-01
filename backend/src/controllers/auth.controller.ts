@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {compare, hash} from 'bcrypt';
+import {NODE_ENV} from '@config';
 import {NextFunction, Request, Response} from 'express';
 import {User} from '@prisma/client';
 import {CreateUserDto} from '@dtos/users.dto';
@@ -14,6 +15,7 @@ import {Exception} from '@utils/exception';
 import IndexController from '@controllers/index.controller';
 
 const EXPIRES_IN = 60 * 60;
+const secure = NODE_ENV === 'production';
 
 export default class AuthController extends IndexController {
   signUp = async (
@@ -45,7 +47,7 @@ export default class AuthController extends IndexController {
       res.cookie('Authorization', token, {
         maxAge: EXPIRES_IN,
         httpOnly: true,
-        secure: true,
+        secure,
       });
       res.status(200).json({token});
     } catch (error) {
@@ -102,7 +104,7 @@ export default class AuthController extends IndexController {
       res.cookie('Authorization', token, {
         maxAge: EXPIRES_IN,
         httpOnly: true,
-        secure: true,
+        secure,
       });
       res.status(200).json({token});
     } catch (error) {
@@ -141,7 +143,7 @@ export default class AuthController extends IndexController {
       res.cookie('Authorization', token, {
         maxAge: EXPIRES_IN,
         httpOnly: true,
-        secure: true,
+        secure,
       });
       res.status(200).json({token});
     } catch (error) {
@@ -181,7 +183,7 @@ export default class AuthController extends IndexController {
       res.cookie('Authorization', token, {
         maxAge: EXPIRES_IN,
         httpOnly: true,
-        secure: true,
+        secure,
       });
       res.status(200).json({token});
     } catch (error) {
