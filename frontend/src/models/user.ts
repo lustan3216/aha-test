@@ -7,6 +7,7 @@ import {
   userUpdate,
   userResetPassword,
   userLogout,
+  userResendVerifyEmail,
 } from '@/services/user';
 import {AccountProvider} from '@/types/user';
 
@@ -60,6 +61,7 @@ export default <UserModelType>{
     *signUp({payload}, {call, put}) {
       try {
         yield call(userSignUp, payload);
+        yield call(userResendVerifyEmail);
       } catch (e) {
         yield put({type: 'logout'});
         throw e;

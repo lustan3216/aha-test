@@ -41,7 +41,7 @@ export default class AuthController extends IndexController {
         update: {email: email, password: hashedPassword},
         create: {email: email, password: hashedPassword},
       });
-      this.emailService.sendVerifyEmail(email);
+
       const token = createAuthToken(createUserData.id, COOKIES_EXPIRES_IN);
 
       res.cookie('Authorization', token, {
@@ -99,7 +99,7 @@ export default class AuthController extends IndexController {
           },
         },
       });
-      await this.emailService.sendVerifyEmail(email);
+
       const token = createAuthToken(findUser.id, COOKIES_EXPIRES_IN);
       res.cookie('Authorization', token, {
         maxAge: COOKIES_EXPIRES_IN * 1000,
