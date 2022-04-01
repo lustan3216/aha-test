@@ -51,6 +51,7 @@ export default function () {
     <Form
       {...FORM_ITEM_PAYOUT}
       layout="horizontal"
+      form={form}
       initialValues={user}
       className={style.form}
       onFinish={onFinish}
