@@ -18,9 +18,8 @@ const initErrors: ErrorMessagesType = {
 export default function () {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const isLocalProvider = useSelector(
-    ({user}: ModelType) => user.provider === AccountProvider.Local
-  );
+  const userProvider = useSelector(({user}: ModelType) => user.provider);
+  const isLocalProvider = userProvider === AccountProvider.Local;
   const [errors, setErrors] = useState(initErrors);
 
   const onFinish = async (values: any) => {
@@ -63,6 +62,16 @@ export default function () {
       className={style.form}
     >
       <Typography.Title>RESET PASSWORD</Typography.Title>
+
+      <p>
+        Only the users signed up by email or password are supported. Google and
+        Facebook login should be changed password by email link but the exam
+        document did not ask this function.
+      </p>
+
+      <p style={{color: '#919191'}}>
+        Signd up with: {isLocalProvider ? 'Email and Password' : userProvider}
+      </p>
 
       <Form.Item
         name="oldPassword"
