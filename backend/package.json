@@ -16,9 +16,8 @@
     "prisma:generate": "prisma generate",
     "deploy:prod": "yarn run build && pm2 start ecosystem.config.js --only prod",
     "deploy:dev": "pm2 start ecosystem.config.js --only dev",
-    "clean": "gts clean",
-    "compile": "tsc",
-    "fix": "gts fix"
+    "fix": "gts fix",
+    "ssh": "ssh ubuntu@3.36.234.203"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
