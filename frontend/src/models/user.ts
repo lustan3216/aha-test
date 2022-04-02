@@ -59,13 +59,8 @@ export default <UserModelType>{
       yield put({type: 'setUser', payload: data});
     },
     *signUp({payload}, {call, put}) {
-      try {
-        yield call(userSignUp, payload);
-        call(userResendVerifyEmail);
-      } catch (e) {
-        yield put({type: 'logout'});
-        throw e;
-      }
+      yield call(userSignUp, payload);
+      call(userResendVerifyEmail);
     },
     *resetPassword({payload}, {call}) {
       yield call(userResetPassword, payload);
