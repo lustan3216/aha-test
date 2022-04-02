@@ -59,7 +59,7 @@ export function verifyTemplate(verifyLink: string) {
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="6cf92250-86a4-41d8-865a-ae5fb2569556.1" data-mc-module-version="2019-10-22">
     <tbody>
       <tr>
-        <td style="padding:0px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Make content rich to avoid to avoid becoming spam mail.</div>
+        <td style="padding:0px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: center">Make content rich to avoid becoming spam mail.</div>
 <div style="font-family: inherit; text-align: center">Those content should be enough.</div><div></div></div></td>
       </tr>
     </tbody>
