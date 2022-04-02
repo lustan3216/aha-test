@@ -3,20 +3,23 @@ import {CookieOptions} from 'express';
 const envName = process.env.NODE_ENV === 'production' ? '.production' : '';
 config({path: `.env${envName}.local`});
 
+const isProd = process.env.NODE_ENV === 'production';
+
 export const CREDENTIALS = process.env.CREDENTIALS === 'true';
-export const COOKIES_SECURE = process.env.NODE_ENV === 'production';
+export const COOKIES_SECURE = isProd;
 export const COOKIES_EXPIRES_IN = 60 * 60;
+
 export const AUTH_COOKIES_OPTION: CookieOptions = {
   maxAge: COOKIES_EXPIRES_IN * 1000,
   httpOnly: COOKIES_SECURE,
-  sameSite: 'none',
+  sameSite: isProd ? 'none' : undefined,
   secure: COOKIES_SECURE,
 };
 
 export const AUTH_CLEAN_COOKIES_OPTION: CookieOptions = {
   maxAge: 0,
   httpOnly: COOKIES_SECURE,
-  sameSite: 'none',
+  sameSite: isProd ? 'none' : undefined,
   secure: COOKIES_SECURE,
 };
 
