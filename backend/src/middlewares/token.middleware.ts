@@ -2,6 +2,7 @@ import {NextFunction, Response, Request} from 'express';
 import {PrismaClient} from '@prisma/client';
 import {Exception} from '@utils/exception';
 import {verifyAuthToken} from '@/utils/token';
+import {AUTH_CLEAN_COOKIES_OPTION} from '@config';
 
 const tokenWithVerifyMiddleware = async (
   req: Request,
@@ -16,7 +17,7 @@ const tokenWithVerifyMiddleware = async (
     const Authorization = req.cookies['Authorization'] || header;
 
     if (!Authorization) {
-      res.cookie('Authorization', '', {maxAge: 0});
+      res.cookie('Authorization', '', AUTH_CLEAN_COOKIES_OPTION);
       next(new Exception(401, 'Authentication token missing'));
       return;
     }
@@ -33,11 +34,11 @@ const tokenWithVerifyMiddleware = async (
       req.currentUser = findUser;
       next();
     } else {
-      res.cookie('Authorization', '', {maxAge: 0});
+      res.cookie('Authorization', '', AUTH_CLEAN_COOKIES_OPTION);
       next(new Exception(401, 'Wrong authentication token'));
     }
   } catch (error) {
-    res.cookie('Authorization', '', {maxAge: 0});
+    res.cookie('Authorization', '', AUTH_CLEAN_COOKIES_OPTION);
     next(new Exception(401, 'Wrong authentication token'));
   }
 };

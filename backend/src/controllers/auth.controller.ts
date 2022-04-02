@@ -1,6 +1,10 @@
 import axios from 'axios';
 import {compare, hash} from 'bcrypt';
-import {COOKIES_EXPIRES_IN, AUTH_COOKIES_OPTION} from '@config';
+import {
+  COOKIES_EXPIRES_IN,
+  AUTH_COOKIES_OPTION,
+  AUTH_CLEAN_COOKIES_OPTION,
+} from '@config';
 import {NextFunction, Request, Response} from 'express';
 import {User} from '@prisma/client';
 import {CreateUserDto} from '@dtos/users.dto';
@@ -188,7 +192,7 @@ export default class AuthController extends IndexController {
         next(new Exception(400, "You're not user"));
       }
 
-      res.cookie('Authorization', '', {maxAge: 0});
+      res.cookie('Authorization', '', AUTH_CLEAN_COOKIES_OPTION);
       res.status(200).json({data: findUser});
     } catch (error) {
       next(error);

@@ -13,6 +13,13 @@ export const AUTH_COOKIES_OPTION: CookieOptions = {
   secure: COOKIES_SECURE,
 };
 
+export const AUTH_CLEAN_COOKIES_OPTION: CookieOptions = {
+  maxAge: 0,
+  httpOnly: COOKIES_SECURE,
+  sameSite: 'none',
+  secure: COOKIES_SECURE,
+};
+
 export const {
   ROLLBAR_KEY,
   FRONTEND_DOMAIN,
