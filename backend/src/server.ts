@@ -7,11 +7,11 @@ import UsersRoute from '@routes/users.route';
 import EmailRoute from '@routes/email.route';
 import validateEnv from '@utils/validateEnv';
 import {PORT, NODE_ENV} from '@config';
-import {PrismaClient} from '@prisma/client';
+import PrismaClient from '@utils/prisma';
 
 validateEnv();
 
-const prisma = new PrismaClient();
+const prisma = PrismaClient;
 const app = new App([
   new IndexRoute(),
   new UsersRoute(),

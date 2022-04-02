@@ -1,4 +1,4 @@
-import {PrismaClient} from '@prisma/client';
+import PrismaClient from '@utils/prisma';
 import {SENDGRID_API_KEY, API_DOMAIN} from '@config';
 import sgMail from '@sendgrid/mail';
 import {verifyTemplate} from '@utils/email';
@@ -8,7 +8,7 @@ import {logger} from '@utils/logger';
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 class AuthService {
-  users = new PrismaClient().user;
+  users = PrismaClient.user;
 
   async sendVerifyEmail(email: string) {
     const token = createEmailToken(email);
@@ -20,7 +20,7 @@ class AuthService {
       subject: 'Aha-project verify email - expire in a hour',
       html: verifyTemplate(verifyLink),
     };
-
+    console.log(msg);
     try {
       await sgMail.send(msg);
     } catch (error) {

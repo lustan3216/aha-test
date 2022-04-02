@@ -1,5 +1,5 @@
 import {NextFunction, Response, Request} from 'express';
-import {PrismaClient} from '@prisma/client';
+import PrismaClient from '@utils/prisma';
 import {Exception} from '@utils/exception';
 import {verifyAuthToken} from '@/utils/token';
 import {AUTH_CLEAN_COOKIES_OPTION} from '@config';
@@ -20,7 +20,7 @@ const tokenWithVerifyMiddleware = async (
       const verificationResponse = verifyAuthToken(Authorization);
       const userId = verificationResponse.userId;
 
-      const users = new PrismaClient().user;
+      const users = PrismaClient.user;
       const findUser = await users.findUnique({
         where: {id: Number(userId)},
       });

@@ -1,8 +1,8 @@
-import {PrismaClient} from '@prisma/client';
+import PrismaClient from '@utils/prisma';
 import EmailService from '@services/email.service';
 
 class IndexController {
-  usersClient = new PrismaClient().user;
+  usersClient = PrismaClient.user;
   emailService = new EmailService();
 }
 
