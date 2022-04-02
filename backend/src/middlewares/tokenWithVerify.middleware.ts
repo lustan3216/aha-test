@@ -26,7 +26,13 @@ const tokenWithVerifyMiddleware = async (
       });
 
       if (findUser && !findUser.isVerify) {
-        next(new Exception(401, {email: ['Need Verify']}));
+        next(
+          new Exception(
+            401,
+            {email: ['Please click the email link to verify']},
+            'needVerify'
+          )
+        );
       } else if (findUser) {
         await users.update({
           where: {id: Number(userId)},
