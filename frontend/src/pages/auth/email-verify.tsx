@@ -11,7 +11,7 @@ const interval = 1000;
 
 export default function () {
   const email = useSelector((state: ModelType) => state.user.email);
-  const [sentTo, setSentTo] = useState(null);
+  const [sentTo, setSentTo] = useState('');
   const [timeLeft, {start}] = useCountDown(initialTime, interval);
   const resend = async () => {
     start(initialTime);
@@ -23,14 +23,20 @@ export default function () {
   };
 
   useEffect(() => {
-    const email = history.location.state?.sentTo;
-    if (history.location.state?.sentTo) {
+    const state = history.location.state as unknown as {
+      sentTo: string | undefined;
+    };
+    const email = state?.sentTo;
+    if (email) {
       setSentTo(email);
       start(initialTime);
     }
   }, []);
 
-  const text = sentTo
+  const fail = history.location.query?.fail;
+  const text = fail
+    ? 'Verify fail, please try again'
+    : sentTo
     ? `We sent a verify email to ${sentTo}, please check!`
     : 'Your account have not verified yet!';
 
