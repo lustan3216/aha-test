@@ -115,17 +115,20 @@ export default class AuthController extends IndexController {
       const {data} = await axios.get<FacebookProfile>(
         `https://graph.facebook.com/me?access_token=${req.body.accessToken}&fields=email,name,id,gender,picture`
       );
+      const email = data.email;
+      const findUser = await this.usersClient.findUnique({where: {email}});
       const user: User = await this.usersClient.upsert({
-        where: {email: data.email},
+        where: {email},
         update: {
           isVerify: true,
           picture: data.picture.data.url,
           loginCount: {
             increment: 1,
           },
+          username: findUser?.username || data.name,
         },
         create: {
-          email: data.email,
+          email,
           username: data.name,
           provider: Provider.FACEBOOK,
           isVerify: true,
@@ -151,17 +154,20 @@ export default class AuthController extends IndexController {
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${req.body.accessToken}`
       );
 
+      const email = data.email;
+      const findUser = await this.usersClient.findUnique({where: {email}});
       const user: User = await this.usersClient.upsert({
-        where: {email: data.email},
+        where: {email},
         update: {
           isVerify: true,
           picture: data.picture,
           loginCount: {
             increment: 1,
           },
+          username: findUser?.username || data.name,
         },
         create: {
-          email: data.email,
+          email,
           username: data.name,
           provider: Provider.GOOGLE,
           isVerify: true,
