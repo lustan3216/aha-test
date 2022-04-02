@@ -91,10 +91,6 @@ const Login: React.FC = () => {
       labelAlign="left"
       className={style.box}
       onFinish={onFinish}
-      initialValues={{
-        email: 'et3216@gmail.com',
-        password: 'asd!@#123eE',
-      }}
       onFieldsChange={onFieldsChange}
     >
       <Typography.Title>LOG IN</Typography.Title>
