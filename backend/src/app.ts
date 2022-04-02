@@ -80,6 +80,7 @@ class App {
           version: '1.0.0',
           description: 'Example docs',
         },
+        openapi: '3.0.0',
       },
       apis: ['swagger.yaml'],
     };

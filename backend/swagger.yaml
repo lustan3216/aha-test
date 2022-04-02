@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0
 
 info:
   description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
@@ -15,16 +15,16 @@ servers:
   - url: https://aha-api.firstage.io
 
 tags:
-- name: user
-  description: User API
-- name: me
-  description: Me API
-- name: statistic
-  description: Statistic API
-- name: auth
-  description: Auth API
-- name: email-verify
-  description: Email Verify API
+  - name: user
+    description: User API
+  - name: me
+    description: Me API
+  - name: statistic
+    description: Statistic API
+  - name: auth
+    description: Auth API
+  - name: email-verify
+    description: Email Verify API
 
 components:
   securitySchemes:
@@ -167,7 +167,6 @@ paths:
     post:
       tags:
         - auth
-        -
       responses:
         200:
           description: "Success"
