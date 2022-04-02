@@ -34,7 +34,7 @@ instance.interceptors.response.use(
     const {pathname} = history.location;
 
     if (status === 401) {
-      if (data.erroCode === 'needVerify') {
+      if (data.errorCode === 'needVerify') {
         history.push('/auth/email-verify');
       } else {
         const dvaApp = getDvaApp();

@@ -66,15 +66,8 @@ export default <UserModelType>{
       yield call(userResetPassword, payload);
     },
     *login({payload}, {call, put}) {
-      try {
-        yield call(userLogin, payload);
-        yield put({type: 'userMeGet'});
-      } catch (e) {
-        yield put({type: 'logout'});
-        throw e;
-      } finally {
-        yield put({type: 'tryFetch'});
-      }
+      yield call(userLogin, payload);
+      yield put({type: 'userMeGet'});
     },
     *loginFacebook({payload}, {call, put}) {
       yield call(userFacebookLogin, payload);

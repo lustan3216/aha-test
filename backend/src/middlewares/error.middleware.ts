@@ -12,11 +12,12 @@ const errorMiddleware = (
     const status: number = error.status || 500;
     const message: string = error.message || 'Something went wrong';
     const errors: Record<string, object> = error.errors || {};
+    const errorCode: string = error.errorCode;
 
     logger.error(
       `[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}`
     );
-    res.status(status).json({message, errors});
+    res.status(status).json({message, errors, errorCode});
   } catch (error) {
     next(error);
   }

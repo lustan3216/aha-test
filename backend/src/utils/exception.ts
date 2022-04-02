@@ -9,6 +9,7 @@ export class Exception {
 
   constructor(status: number, error: string | ErrorMap, errorCode?: string) {
     this.status = status;
+    this.errorCode = errorCode;
 
     if (typeof error === 'string') {
       this.message = error;
@@ -17,6 +18,5 @@ export class Exception {
       this.errors = error;
       this.message = flatten(Object.values(error)).join(',');
     }
-    this.errorCode = errorCode;
   }
 }
