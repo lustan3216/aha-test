@@ -20,7 +20,7 @@ class AuthService {
       subject: 'Aha-project verify email - expire in a hour',
       html: verifyTemplate(verifyLink),
     };
-    console.log(msg);
+
     try {
       await sgMail.send(msg);
     } catch (error) {

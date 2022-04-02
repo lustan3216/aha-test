@@ -32,9 +32,8 @@ export default function () {
       start(initialTime);
     }
   }, []);
-
-  const fail = history.location.query?.fail;
-  const text = fail
+  const error = history.location.query?.error;
+  const text = error
     ? 'Verify fail, please try again'
     : sentTo
     ? `We sent a verify email to ${sentTo}, please check!`
