@@ -12,7 +12,7 @@ class AuthService {
 
   async sendVerifyEmail(email: string) {
     const token = createEmailToken(email);
-    const verifyLink = API_DOMAIN + '/email-verify/' + token;
+    const verifyLink = API_DOMAIN + '/v1/email-verify/' + token;
 
     const msg = {
       to: email,
