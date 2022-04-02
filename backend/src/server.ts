@@ -7,9 +7,11 @@ import UsersRoute from '@routes/users.route';
 import EmailRoute from '@routes/email.route';
 import validateEnv from '@utils/validateEnv';
 import {PORT, NODE_ENV} from '@config';
+import {PrismaClient} from '@prisma/client';
 
 validateEnv();
 
+const prisma = new PrismaClient();
 const app = new App([
   new IndexRoute(),
   new UsersRoute(),
@@ -30,3 +32,10 @@ if (NODE_ENV === 'production') {
 
   https.createServer(credentials, app.app).listen(PORT);
 }
+
+process.on('SIGINT', () => {
+  prisma.$on('beforeExit', async () => {
+    // eslint-disable-next-line no-process-exit
+    process.exit(0);
+  });
+});
