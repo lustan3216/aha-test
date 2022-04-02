@@ -1,126 +1,312 @@
+openapi: 3.0.0
+
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "et3216@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
+servers:
+  - url: https://aha-api.firstage.io
+
 tags:
-- name: users
-  description: users API
+- name: user
+  description: User API
+- name: me
+  description: Me API
+- name: statistic
+  description: Statistic API
+- name: auth
+  description: Auth API
+- name: email-verify
+  description: Email Verify API
 
-paths:
-# [GET] users
-  /users:
-    get:
-      tags:
-      - users
-      summary: Find All Users
-      responses:
-        200:
-          description: 'OK'
-        500:
-          description: 'Server Error'
-
-# [POST] users
-    post:
-      tags:
-      - users
-      summary: Add User
-      parameters:
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
-      responses:
-        201:
-          description: 'Created'
-        400:
-          description: 'Bad Request'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# [GET] users/id
-  /users/{id}:
-    get:
-      tags:
-      - users
-      summary: Find User By Id
-      parameters:
-      - name: id
-        in: path
-        description: User Id
-        required: true
-        type: integer
-      responses:
-        200:
-          description: 'OK'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# [PUT] users/id
-    put:
-      tags:
-      - users
-      summary: Update User By Id
-      parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-        type: integer
-      - name: body
-        in: body
-        description: user Data
-        required: true
-        schema:
-          $ref: '#/definitions/users'
-      responses:
-        200:
-          description: 'OK'
-        400:
-          description: 'Bad Request'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# [DELETE] users/id
-    delete:
-      tags:
-      - users
-      summary: Delete User By Id
-      parameters:
-      - name: id
-        in: path
-        description: user Id
-        required: true
-        type: integer
-      responses:
-        200:
-          description: 'OK'
-        409:
-          description: 'Conflict'
-        500:
-          description: 'Server Error'
-
-# definitions
-definitions:
-  users:
-    type: object
-    required:
+components:
+  securitySchemes:
+    cookieAuth:         # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: Authorization
+  schemas:
+    User:
+      type: object
+      required:
         - email
         - password
-    properties:
-      id:
-        type: integer
-        description: user Id
-      email:
-        type: string
-        description: user Email
-      password:
-        type: string
-        description: user Password
+      properties:
+        id:
+          type: integer
+          description: user Id
+        email:
+          type: string
+          description: user Email
+        password:
+          type: string
+          description: user Password
 
-schemes:
- - https
- - http
+paths:
+  /v1/signup:
+    post:
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: integer
+              required:
+                - email
+                - password
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: 'Wrong parameters'
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/login:
+    post:
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: integer
+              required:
+                - email
+                - password
+      responses:
+        200:
+          description: >
+            Successfully authenticated.
+            The session ID is returned in a cookie named `Authorization`. You need to include this cookie in subsequent requests.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: Authorization=abcde12345; Path=/; HttpOnly
+        400:
+          description: 'Wrong parameters'
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/login/google:
+    post:
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+              required:
+                - accessToken
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: 'Wrong parameters'
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/login/facebook:
+    post:
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+              required:
+                - accessToken
+      responses:
+        200:
+          description: "Success"
+        400:
+          description: 'Wrong parameters'
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/logout:
+    post:
+      tags:
+        - auth
+        -
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/statistics:
+    get:
+      tags:
+        - statistic
+      security:
+        - cookieAuth: []
+      summary: Get user statistics
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/email-verify/:token:
+    get:
+      tags:
+        - email-verify
+      summary: The link in verification email and it will redirect to dashboard when success.
+      parameters:
+        - name: token
+          in: path
+          description: token
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/email-verify:
+    post:
+      tags:
+        - email-verify
+      security:
+        - cookieAuth: []
+      summary: Send the verification email
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+
+  /v1/me:
+    get:
+      tags:
+        - me
+      summary: Get self profile
+      security:
+        - cookieAuth: []
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+    patch:
+      tags:
+        - me
+      summary: Update self username
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+              required:
+                - username
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/me/reset-password:
+    patch:
+      tags:
+        - me
+      summary: Update password
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
+              required:
+                - newPassword
+                - oldPassword
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
+
+  /v1/users:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      security:
+        - cookieAuth: []
+      responses:
+        200:
+          description: "Success"
+        401:
+          description: 'Wrong authentication token'
+        500:
+          description: 'Server Error'
