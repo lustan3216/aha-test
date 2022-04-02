@@ -12,11 +12,7 @@ import {
 export default class AuthController extends IndexController {
   emailService = new EmailService();
 
-  emailVerify = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> => {
+  emailVerify = async (req: Request, res: Response): Promise<void> => {
     try {
       const emailToken = req.params.token.toString();
       const {email} = await verifyEmailToken(emailToken);
@@ -35,7 +31,7 @@ export default class AuthController extends IndexController {
       res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
       res.redirect(`${FRONTEND_DOMAIN}/dashboard/profile`);
     } catch (error) {
-      next(error);
+      res.redirect(`${FRONTEND_DOMAIN}/auth/email-verify?error=fail`);
     }
   };
 
