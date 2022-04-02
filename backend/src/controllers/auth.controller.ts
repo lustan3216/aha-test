@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {compare, hash} from 'bcrypt';
-import {COOKIES_SECURE, COOKIES_EXPIRES_IN} from '@config';
+import {COOKIES_EXPIRES_IN, AUTH_COOKIES_OPTION} from '@config';
 import {NextFunction, Request, Response} from 'express';
 import {User} from '@prisma/client';
 import {CreateUserDto} from '@dtos/users.dto';
@@ -40,11 +40,7 @@ export default class AuthController extends IndexController {
 
       const token = createAuthToken(createUserData.id, COOKIES_EXPIRES_IN);
 
-      res.cookie('Authorization', token, {
-        maxAge: COOKIES_EXPIRES_IN * 1000,
-        httpOnly: true,
-        secure: COOKIES_SECURE,
-      });
+      res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
       res.status(200).json({token});
     } catch (error) {
       next(error);
@@ -99,11 +95,7 @@ export default class AuthController extends IndexController {
       }
 
       const token = createAuthToken(findUser.id, COOKIES_EXPIRES_IN);
-      res.cookie('Authorization', token, {
-        maxAge: COOKIES_EXPIRES_IN * 1000,
-        httpOnly: true,
-        secure: COOKIES_SECURE,
-      });
+      res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
       res.status(200).json({token});
     } catch (error) {
       next(error);
@@ -138,11 +130,7 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
-      res.cookie('Authorization', token, {
-        maxAge: COOKIES_EXPIRES_IN * 1000,
-        httpOnly: true,
-        secure: COOKIES_SECURE,
-      });
+      res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
       res.status(200).json({token});
     } catch (error) {
       next(error);
@@ -178,11 +166,7 @@ export default class AuthController extends IndexController {
       });
 
       const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
-      res.cookie('Authorization', token, {
-        maxAge: COOKIES_EXPIRES_IN * 1000,
-        httpOnly: true,
-        secure: COOKIES_SECURE,
-      });
+      res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
       res.status(200).json({token});
     } catch (error) {
       next(error);

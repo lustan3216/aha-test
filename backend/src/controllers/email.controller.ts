@@ -3,9 +3,11 @@ import {User} from '@prisma/client';
 import EmailService from '@services/email.service';
 import {createAuthToken, verifyEmailToken} from '@utils/token';
 import IndexController from '@controllers/index.controller';
-import {FRONTEND_DOMAIN} from '@config';
-
-const EXPIRES_IN = 60 * 60;
+import {
+  AUTH_COOKIES_OPTION,
+  FRONTEND_DOMAIN,
+  COOKIES_EXPIRES_IN,
+} from '@config';
 
 export default class AuthController extends IndexController {
   emailService = new EmailService();
@@ -28,13 +30,9 @@ export default class AuthController extends IndexController {
         },
       });
 
-      const token = createAuthToken(user.id, EXPIRES_IN);
+      const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
 
-      res.cookie('Authorization', token, {
-        maxAge: EXPIRES_IN,
-        httpOnly: true,
-        secure: true,
-      });
+      res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
       res.redirect(`${FRONTEND_DOMAIN}/dashboard/profile`);
     } catch (error) {
       next(error);
