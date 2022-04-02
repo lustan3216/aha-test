@@ -45,7 +45,7 @@ export default class AuthController extends IndexController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      await this.emailService.sendVerifyEmail(req.currentUser.email);
+      this.emailService.sendVerifyEmail(req.currentUser.email);
       res.status(200).json({email: req.currentUser.email});
     } catch (error) {
       next(error);
