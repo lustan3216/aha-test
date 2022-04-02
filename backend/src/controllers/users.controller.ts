@@ -12,7 +12,7 @@ export default class UsersController extends IndexController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const page = req.query.page || 0;
+      const page = req.query.page || 1;
       const per = 10;
       const currentPage = (page as number) - 1;
       const allUser: User[] = await this.usersClient.findMany({
