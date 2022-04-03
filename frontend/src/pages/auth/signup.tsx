@@ -23,10 +23,7 @@ export default function () {
     try {
       await dispatch({
         type: 'user/signUp',
-        payload: {
-          email: values.email,
-          password: values.password,
-        },
+        payload: values,
       });
       setErrors(initErrors);
 

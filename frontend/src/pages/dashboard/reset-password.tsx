@@ -26,10 +26,7 @@ export default function () {
     try {
       await dispatch({
         type: 'user/resetPassword',
-        payload: {
-          oldPassword: values.oldPassword,
-          newPassword: values.newPassword,
-        },
+        payload: values,
       });
       setErrors(initErrors);
       message.success('Update success');

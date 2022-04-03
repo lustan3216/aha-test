@@ -29,7 +29,7 @@ const tokenWithVerifyMiddleware = async (
         next(
           new Exception(
             401,
-            {email: ['Please click the email link to verify']},
+            {email: ['Please resend the email link to verify']},
             'needVerify'
           )
         );

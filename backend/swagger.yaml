@@ -103,10 +103,13 @@ paths:
                 email:
                   type: string
                 password:
-                  type: integer
+                  type: string
+                passwordConfirm:
+                  type: string
               required:
                 - email
                 - password
+                - passwordConfirm
       responses:
         200:
           description: "Success"
@@ -391,9 +394,12 @@ paths:
                   type: string
                 newPassword:
                   type: string
+                newPasswordConfirm:
+                  type: string
               required:
                 - newPassword
                 - oldPassword
+                - newPasswordConfirm
       responses:
         200:
           description: "Success"
