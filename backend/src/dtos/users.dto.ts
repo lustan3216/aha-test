@@ -6,14 +6,14 @@ import HasDigitChar from './decorators/hasDigitChar.decorator';
 
 export class CreateUserDto {
   @IsEmail({}, {message: 'This email is invalid'})
-  public email: string | undefined;
+  public email: string;
 
   @MinLength(8)
   @HasUpperChar()
   @HasSpecialChar()
   @HasDigitChar()
   @HasLowerChar()
-  public password: string | undefined;
+  public password: string;
 }
 export class UpdateUserDto {
   @IsString()
@@ -23,7 +23,7 @@ export class UpdateUserDto {
 
 export class AccessTokenDto {
   @IsString()
-  public accessToken: string | undefined;
+  public accessToken: string;
 }
 
 export class PasswordResetDto {
@@ -32,12 +32,12 @@ export class PasswordResetDto {
   @HasSpecialChar()
   @HasDigitChar()
   @HasLowerChar()
-  public oldPassword: string | undefined;
+  public oldPassword: string;
 
   @MinLength(8)
   @HasUpperChar()
   @HasSpecialChar()
   @HasDigitChar()
   @HasLowerChar()
-  public newPassword: string | undefined;
+  public newPassword: string;
 }
