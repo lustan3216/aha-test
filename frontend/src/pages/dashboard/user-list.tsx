@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 import React, {useEffect, useState} from 'react';
-import {Table, Typography} from 'antd';
+import {Statistic, Table, Typography} from 'antd';
 import {usersGet} from '@/services/user';
 import {User} from '@/types/user';
 import style from './dashboard.less';
+import {getStatistics} from '@/services/statistics';
 
 export default function () {
   const [users, setUsers] = useState<User[]>([]);
@@ -18,9 +19,41 @@ export default function () {
     })();
   }, [page]);
 
+  const [statistics, setStatistics] = useState({
+    total: 0,
+    todayActiveUser: 0,
+    averageIn7: 0,
+  });
+
+  useEffect(() => {
+    (async function () {
+      const data = await getStatistics();
+      setStatistics(data);
+    })();
+  }, []);
+
   return (
     <div className={style.table}>
       <Typography.Title>USER LIST</Typography.Title>
+
+      <div style={{display: 'flex'}}>
+        <Statistic
+          title="Total Users"
+          value={statistics.total}
+          style={{flex: 1}}
+        />
+        <Statistic
+          title="Today Active User"
+          value={statistics.todayActiveUser}
+          style={{flex: 1}}
+        />
+        <Statistic
+          title="Average In 7 days"
+          value={statistics.averageIn7}
+          style={{flex: 1}}
+        />
+      </div>
+
       <Table
         pagination={{
           current: page,
@@ -39,7 +72,7 @@ export default function () {
         />
         {/*<Table.Column title="Updated At" dataIndex="updatedAt" render={(text) => dayjs(text).format()}/>*/}
         <Table.Column
-          title="Actived At"
+          title="Last session at"
           dataIndex="activedAt"
           render={text => text && dayjs(text).format()}
         />

@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from './index.less';
-import {Layout, Menu, Statistic} from 'antd';
+import {Layout, Menu} from 'antd';
 const {Content, Sider} = Layout;
 import {history, useSelector} from 'umi';
 import {ModelType} from '@/models';
-import {getStatistics} from '@/services/statistics';
 import Logout from '@/components/Logout';
 
 const IndexPage: React.FC = ({children}) => {
@@ -12,11 +11,6 @@ const IndexPage: React.FC = ({children}) => {
   const noAuth = useSelector(
     ({user}: ModelType) => user.email && !user.isVerify
   );
-  const [statistics, setStatistics] = useState({
-    total: 0,
-    todayActiveUser: 0,
-    averageIn7: 0,
-  });
 
   useEffect(() => {
     if (noAuth) {
@@ -24,21 +18,11 @@ const IndexPage: React.FC = ({children}) => {
     }
   }, [noAuth, pathname]);
 
-  useEffect(() => {
-    (async function () {
-      const data = await getStatistics();
-      setStatistics(data);
-    })();
-  }, []);
-
   return (
     <Layout style={{background: 'white'}}>
       <Sider theme="light" width="300">
         <Menu selectedKeys={[history.location.pathname]}>
-          <Menu.Item
-            key="/"
-            onClick={() => history.push('/')}
-          >
+          <Menu.Item key="/" onClick={() => history.push('/')}>
             HOMEPAGE
           </Menu.Item>
 
@@ -65,18 +49,6 @@ const IndexPage: React.FC = ({children}) => {
 
           <Menu.Item key="logout">
             <Logout />
-          </Menu.Item>
-
-          <Menu.Item
-            key="static"
-            style={{height: 230, marginTop: 100, paddingTop: 20}}
-          >
-            <Statistic title="Total Users" value={statistics.total} />
-            <Statistic
-              title="Today Active User"
-              value={statistics.todayActiveUser}
-            />
-            <Statistic title="Average In 7" value={statistics.averageIn7} />
           </Menu.Item>
         </Menu>
       </Sider>
