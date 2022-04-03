@@ -34,16 +34,19 @@ instance.interceptors.response.use(
     const {pathname} = history.location;
 
     if (status === 401) {
+      if (!/^\/dashboard/.test(pathname)) {
+        return Promise.reject(error);
+      }
+
       if (data.errorCode === 'needVerify') {
         history.push(`/auth/email-verify${history.location.search}`);
       } else {
         const dvaApp = getDvaApp();
         dvaApp._store.dispatch({type: 'user/cleanUser'});
-        if (pathname !== '/auth/login') {
-          history.push('/auth/login');
-        }
-        if (/^\/dashboard/.test(pathname)) {
+        if (pathname === '/auth/login') {
           message.error(data.message);
+        } else {
+          history.push('/auth/login');
         }
       }
     } else if (status > 500) {
