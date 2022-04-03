@@ -16,15 +16,21 @@ export default class AuthController extends IndexController {
     try {
       const emailToken = req.params.token.toString();
       const {email} = await verifyEmailToken(emailToken);
-      const user: User = await this.usersClient.update({
+      const user = await this.usersClient.findUnique({
         where: {email},
-        data: {
-          isVerify: true,
-          loginCount: {
-            increment: 1,
-          },
-        },
       });
+
+      if (!user.isVerify) {
+        await this.usersClient.update({
+          where: {email},
+          data: {
+            isVerify: true,
+            loginCount: {
+              increment: 1,
+            },
+          },
+        });
+      }
 
       const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
 
