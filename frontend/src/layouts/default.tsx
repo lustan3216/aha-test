@@ -20,7 +20,11 @@ const IndexPage: React.FC = ({children}) => {
   return (
     <Layout style={{background: 'white'}}>
       <Content className={style.container}>
-        <Link to="/" style={{fontSize: 24, fontWeight: 'bold'}} className="ant-typography">
+        <Link
+          to="/"
+          style={{fontSize: 24, fontWeight: 'bold'}}
+          className="ant-typography"
+        >
           HOMEPAGE
         </Link>
         {children}
