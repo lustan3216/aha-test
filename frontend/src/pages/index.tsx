@@ -31,6 +31,14 @@ export default function IndexPage() {
             API docs
           </Button>
 
+          <Button
+            onClick={() =>
+              window.open('https://github.com/lustan3216/aha-test')
+            }
+          >
+            Repository
+          </Button>
+
           <Divider />
 
           <Typography.Title>Resume</Typography.Title>
