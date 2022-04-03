@@ -18,7 +18,7 @@ export class ReadUserDto {
   public password: string;
 }
 
-export class CreateUserDto extends ReadUserDto{
+export class CreateUserDto extends ReadUserDto {
   @MatchSame('password', {
     message: 'password confirmation should be the same as the password',
   })
