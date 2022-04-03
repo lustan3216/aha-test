@@ -1,4 +1,5 @@
 import request from '@/services/request';
+import {getTimezone} from '@/utils/date';
 
 type Statistics = {
   total: number;
@@ -7,5 +8,6 @@ type Statistics = {
 };
 
 export function getStatistics(): Promise<Statistics> {
-  return request.get('/v1/statistics');
+  const timezone = getTimezone();
+  return request.get(`/v1/statistics?timezone=${timezone || ''}`);
 }

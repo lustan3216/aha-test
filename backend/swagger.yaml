@@ -257,6 +257,12 @@ paths:
     get:
       tags:
         - statistic
+      parameters:
+        - name: timezone
+          in: query
+          description: The clientside timezone
+          schema:
+            type: string
       security:
         - cookieAuth: []
       summary: Get user statistics

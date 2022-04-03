@@ -1,6 +1,10 @@
 import {NextFunction, Request, Response} from 'express';
 import IndexController from '@/controllers/index.controller';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 export default class StatisticsController extends IndexController {
   statistics = async (
@@ -10,17 +14,21 @@ export default class StatisticsController extends IndexController {
   ): Promise<void> => {
     try {
       const total = await this.usersClient.count();
+      const timezone = req.query.timezone as string;
+      const startOfToday = dayjs.tz(new Date(), timezone || '').startOf('day');
+
       const todayActiveUser = await this.usersClient.count({
         where: {
           activedAt: {
-            gte: dayjs().subtract(1, 'day').format(),
+            gte: startOfToday.utc().format(),
           },
         },
       });
+
       const averageIn7 = await this.usersClient.count({
         where: {
           activedAt: {
-            gte: dayjs().subtract(7, 'day').format(),
+            gte: startOfToday.subtract(6, 'day').utc().format(),
           },
         },
       });
