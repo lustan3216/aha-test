@@ -84,7 +84,9 @@ export default class AuthController extends IndexController {
         findUser.password || ''
       );
       if (!isPasswordMatching) {
-        next(new Exception(400, {password: ["You're password not matching"]}));
+        return next(
+          new Exception(400, {password: ["You're password not matching"]})
+        );
       }
 
       if (findUser.isVerify) {
