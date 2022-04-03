@@ -42,7 +42,7 @@ export default function IndexPage() {
               )
             }
           >
-            中文履歷
+            中文履歷(含做過的專案)
           </Button>
 
           <Button
