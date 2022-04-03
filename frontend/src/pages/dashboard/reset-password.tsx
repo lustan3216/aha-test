@@ -159,6 +159,8 @@ export default function () {
         name="newPasswordConfirm"
         label="New Password Confirm"
         dependencies={['newPassword']}
+        validateStatus={errors.newPasswordConfirm?.length ? 'error' : 'success'}
+        help={<Help messages={errors.newPasswordConfirm} />}
         hasFeedback
         rules={[
           {

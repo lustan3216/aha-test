@@ -5,11 +5,13 @@ import {Meta} from '@/types/response';
 export function userSignUp({
   email,
   password,
+  passwordConfirm,
 }: {
   email: string;
   password: string;
+  passwordConfirm: string;
 }) {
-  return request.post('/v1/signup', {email, password});
+  return request.post('/v1/signup', {email, password, passwordConfirm});
 }
 
 export function userLogin({
