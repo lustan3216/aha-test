@@ -1,9 +1,8 @@
-openapi: 3.0
+openapi: 3.0.0
 
 info:
-  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
   version: "1.0.0"
-  title: "Swagger Petstore"
+  title: "Aha-test Api Document"
   termsOfService: "http://swagger.io/terms/"
   contact:
     email: "et3216@gmail.com"
@@ -32,7 +31,17 @@ components:
       type: apiKey
       in: cookie
       name: Authorization
+      description: The token will be saved in cookie autimatically after login. Acutally, no need to save it manually.
   schemas:
+    Token:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          default: yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTY0ODkxNTA5NSwiZXhwIjoxNjQ4OTE4Njk1fQ.GubAZD2Fc_8YgBHslsWOnhMEtnDasfBLqqYokSLDWok
+          description: Token for fetch data
     User:
       type: object
       required:
@@ -42,12 +51,42 @@ components:
         id:
           type: integer
           description: user Id
+          default: 123
         email:
           type: string
-          description: user Email
-        password:
+          description: Email
+          default: aha@gmail.com
+        username:
           type: string
-          description: user Password
+          description: Username
+          default: username
+        provider:
+          type: string
+          enum:
+            - LOCAL
+            - GOOGLE
+            - FACEOOK
+          description: Account provider
+        isVerify:
+          type: boolean
+          description: Is verify by email link or not
+          default: false
+        activedAt:
+          type: string
+          description: Timestamp of the last user session
+          default: 2022-04-01T05:00:34.428Z
+        createdAt:
+          type: string
+          description: Timestamp of user sign up
+          default: 2022-04-01T05:00:34.428Z
+        updatedAt:
+          type: string
+          description: Timestamp of user updated
+          default: 2022-04-01T05:00:34.428Z
+        loginCount:
+          type: string
+          description: Number of times logged in.
+          default: 1
 
 paths:
   /v1/signup:
@@ -71,6 +110,10 @@ paths:
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
         400:
           description: 'Wrong parameters'
         401:
@@ -100,12 +143,16 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            The session ID is returned in a cookie named `Authorization`. You need to include this cookie in subsequent requests.
+            Header with `Set-Cookie` to store the token in the client side.
           headers:
             Set-Cookie:
               schema:
                 type: string
                 example: Authorization=abcde12345; Path=/; HttpOnly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
         400:
           description: 'Wrong parameters'
         401:
@@ -130,7 +177,18 @@ paths:
                 - accessToken
       responses:
         200:
-          description: "Success"
+          description: >
+            Successfully authenticated.
+            Header with `Set-Cookie` to store the token in the client side.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: Authorization=abcde12345; Path=/; HttpOnly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
         400:
           description: 'Wrong parameters'
         401:
@@ -155,7 +213,18 @@ paths:
                 - accessToken
       responses:
         200:
-          description: "Success"
+          description: >
+            Successfully authenticated.
+            Header with `Set-Cookie` to store the token in cookie.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: Authorization=abcde12345; Path=/; HttpOnly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
         400:
           description: 'Wrong parameters'
         401:
@@ -169,7 +238,13 @@ paths:
         - auth
       responses:
         200:
-          description: "Success"
+          description: >
+            Successfully logout.
+            Clear out the token of the cookie.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         401:
           description: 'Wrong authentication token'
         500:
@@ -185,6 +260,21 @@ paths:
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    description: Total number of users who have signed up.
+                  todayActiveUser:
+                    type: integer
+                    description: Total number of users with active sessions today.
+                  averageIn7:
+                    type: integer
+                    description: Average number of active session users in the last 7 days rolling.
+
         401:
           description: 'Wrong authentication token'
         500:
@@ -202,6 +292,7 @@ paths:
           required: true
           schema:
             type: string
+            default: yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTY0ODkxNTA5NSwiZXhwIjoxNjQ4OTE4Njk1fQ.GubAZD2Fc_8YgBHslsWOnhMEtnDasfBLq
       responses:
         200:
           description: "Success"
@@ -220,6 +311,14 @@ paths:
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: The email address to be sent
         401:
           description: 'Wrong authentication token'
         500:
@@ -236,6 +335,10 @@ paths:
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         401:
           description: 'Wrong authentication token'
         500:
@@ -244,7 +347,7 @@ paths:
     patch:
       tags:
         - me
-      summary: Update self username
+      summary: Only username can be updated
       security:
         - cookieAuth: []
       requestBody:
@@ -261,6 +364,10 @@ paths:
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         401:
           description: 'Wrong authentication token'
         500:
@@ -290,6 +397,10 @@ paths:
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         401:
           description: 'Wrong authentication token'
         500:
@@ -302,9 +413,39 @@ paths:
       summary: Get all users
       security:
         - cookieAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: The number of page
+
       responses:
         200:
           description: "Success"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: The users data
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/User'
+                        - $ref: '#/components/schemas/User'
+                  meta:
+                    type: object
+                    properties:
+                      currentPage:
+                        description: Current Page
+                        type: number
+                      total:
+                        description: All users count
+                        type: number
+
         401:
           description: 'Wrong authentication token'
         500:
