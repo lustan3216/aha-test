@@ -34,7 +34,7 @@ instance.interceptors.response.use(
     const {pathname} = history.location;
 
     if (status === 401) {
-      if (!/^\/dashboard/.test(pathname)) {
+      if (!/^\/dashboard/.test(pathname) && pathname !== '/auth/login') {
         return Promise.reject(error);
       }
 
