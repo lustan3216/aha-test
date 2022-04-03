@@ -15,7 +15,7 @@ export default function IndexPage() {
     <Provider config={rollbarConfig}>
       <ErrorBoundary>
         <div className={style.content}>
-          <Typography.Title>HOMEPAGE</Typography.Title>
+          <Typography.Title>AUTH</Typography.Title>
 
           <Button onClick={() => history.push('/auth/signup')}>Sign Up</Button>
 

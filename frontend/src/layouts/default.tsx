@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {Layout} from 'antd';
+import {Layout, Typography} from 'antd';
 import style from './index.less';
-import {useSelector, history} from 'umi';
+import {Link, useSelector, history} from 'umi';
 import {ModelType} from '@/models';
 const {Content} = Layout;
 
@@ -19,7 +19,12 @@ const IndexPage: React.FC = ({children}) => {
 
   return (
     <Layout style={{background: 'white'}}>
-      <Content className={style.container}>{children}</Content>
+      <Content className={style.container}>
+        <Link to="/" style={{fontSize: 24, fontWeight: 'bold'}} className="ant-typography">
+          HOMEPAGE
+        </Link>
+        {children}
+      </Content>
     </Layout>
   );
 };
