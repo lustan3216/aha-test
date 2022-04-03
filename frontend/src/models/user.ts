@@ -60,7 +60,7 @@ export default <UserModelType>{
     },
     *signUp({payload}, {call, put}) {
       yield call(userSignUp, payload);
-      call(userResendVerifyEmail);
+      yield call(userResendVerifyEmail);
     },
     *resetPassword({payload}, {call}) {
       yield call(userResetPassword, payload);
