@@ -1,5 +1,5 @@
 import {history} from 'umi';
-import {Button, Typography} from 'antd';
+import {Button, Typography, Divider} from 'antd';
 import style from './index.less';
 import React from 'react';
 import {Provider, ErrorBoundary} from '@rollbar/react';
@@ -20,6 +20,36 @@ export default function IndexPage() {
           <Button onClick={() => history.push('/auth/signup')}>Sign Up</Button>
 
           <Button onClick={() => history.push('/auth/login')}>Login</Button>
+
+          <Divider />
+
+          <Typography.Title>API DOCS</Typography.Title>
+
+          <Button
+            onClick={() => window.open('https://aha-api.firstage.io/api-docs')}
+          >
+            API docs
+          </Button>
+
+          <Divider />
+
+          <Typography.Title>Resume</Typography.Title>
+
+          <Button
+            onClick={() =>
+              window.open(
+                'https://www.cakeresume.com/s--DzXhm_vjCigPjl-bqfCGXA--/776848-50517e'
+              )
+            }
+          >
+            中文履歷
+          </Button>
+
+          <Button
+            onClick={() => window.open('https://www.cakeresume.com/04d467')}
+          >
+            English Resume
+          </Button>
         </div>
       </ErrorBoundary>
     </Provider>
