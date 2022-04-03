@@ -3,6 +3,7 @@ import IndexController from '@/controllers/index.controller';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import { Exception } from "@utils/exception";
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
@@ -15,7 +16,14 @@ export default class StatisticsController extends IndexController {
     try {
       const total = await this.usersClient.count();
       const timezone = req.query.timezone as string;
-      const startOfToday = dayjs.tz(new Date(), timezone || '').startOf('day');
+      let date = dayjs.tz(new Date());
+      try {
+        date = dayjs.tz(new Date(), timezone || '');
+      } catch (e) {
+        return next(new Exception(400, {timezone: ['timezone invalid']}));
+      }
+
+      const startOfToday = date.startOf('day');
 
       const todayActiveUser = await this.usersClient.count({
         where: {
