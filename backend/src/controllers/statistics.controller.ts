@@ -28,7 +28,7 @@ export default class StatisticsController extends IndexController {
       res.status(200).json({
         total,
         todayActiveUser,
-        averageIn7,
+        averageIn7: Math.ceil(averageIn7 / 7),
       });
     } catch (error) {
       next(error);
