@@ -4,7 +4,6 @@ import {Layout, Menu} from 'antd';
 const {Content, Sider} = Layout;
 import {history, useSelector} from 'umi';
 import {ModelType} from '@/models';
-import Logout from '@/components/Logout';
 
 const IndexPage: React.FC = ({children}) => {
   const {pathname} = history.location;
@@ -45,10 +44,6 @@ const IndexPage: React.FC = ({children}) => {
             onClick={() => history.push('/dashboard/user-list')}
           >
             User List
-          </Menu.Item>
-
-          <Menu.Item key="logout">
-            <Logout />
           </Menu.Item>
         </Menu>
       </Sider>

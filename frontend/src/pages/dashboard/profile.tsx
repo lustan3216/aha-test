@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import {Form, Input, Button, Typography, message} from 'antd';
+import {Form, Input, Button, Typography, message, Divider} from 'antd';
 import {useDispatch, useSelector} from 'umi';
 import {ModelType} from '@/models';
 import {UserOutlined} from '@ant-design/icons';
@@ -8,6 +8,7 @@ import {FORM_ITEM_PAYOUT, TAIL_FORM_ITEM_LAYOUT, ERROR_MESSAGE} from '@/const';
 import style from './dashboard.less';
 import {ErrorMessagesType} from '@/types/response';
 import Help from '@/components/Help';
+import Logout from '@/components/Logout';
 
 const initErrors: ErrorMessagesType = {
   username: [],
@@ -98,6 +99,10 @@ export default function () {
           Submit
         </Button>
       </Form.Item>
+
+      <Divider />
+
+      <Logout />
     </Form>
   );
 }
