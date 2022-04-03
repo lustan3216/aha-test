@@ -1,4 +1,4 @@
-import {IsEmail, MinLength, IsString} from 'class-validator';
+import {IsEmail, MinLength, IsString, IsNotEmpty} from 'class-validator';
 import HasLowerChar from './decorators/hasLowerChar.decorator';
 import HasUpperChar from './decorators/hasUpperChar.decorator';
 import HasSpecialChar from './decorators/hasSpecialChar.decorator';
@@ -17,7 +17,8 @@ export class CreateUserDto {
 }
 export class UpdateUserDto {
   @IsString()
-  public username: string | undefined;
+  @IsNotEmpty()
+  public username: string;
 }
 
 export class AccessTokenDto {
