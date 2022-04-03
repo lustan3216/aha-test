@@ -36,6 +36,13 @@ const IndexPage: React.FC = ({children}) => {
       <Sider theme="light" width="300">
         <Menu selectedKeys={[history.location.pathname]}>
           <Menu.Item
+            key="/"
+            onClick={() => history.push('/')}
+          >
+            HOMEPAGE
+          </Menu.Item>
+
+          <Menu.Item
             key="/dashboard/profile"
             onClick={() => history.push('/dashboard/profile')}
           >
