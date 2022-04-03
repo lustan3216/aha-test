@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Form, Input, Button, Typography, message} from 'antd';
 import {useDispatch, useSelector} from 'umi';
 import {ModelType} from '@/models';
@@ -18,6 +18,8 @@ export default function () {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState(initErrors);
   const user = useSelector(({user}: ModelType) => user);
+
+  useEffect(() => form.resetFields(), Object.values(user));
 
   const onFinish = async (values: any) => {
     try {
