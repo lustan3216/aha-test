@@ -32,6 +32,12 @@ export default function IndexPage() {
           </Button>
 
           <Button
+            onClick={() => window.open('https://studio1.firstage.io/')}
+          >
+            Database Grid
+          </Button>
+
+          <Button
             onClick={() =>
               window.open('https://github.com/lustan3216/aha-test')
             }
