@@ -31,9 +31,7 @@ export default function IndexPage() {
             API docs
           </Button>
 
-          <Button
-            onClick={() => window.open('https://studio1.firstage.io/')}
-          >
+          <Button onClick={() => window.open('https://studio1.firstage.io/')}>
             Database Grid
           </Button>
 

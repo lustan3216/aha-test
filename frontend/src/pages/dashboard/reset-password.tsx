@@ -63,7 +63,8 @@ export default function () {
       <p>
         Only the user signed up by email or password are supported.
         <br />
-        Google and Facebook login should be changed password by email link but the exam document did not ask this function.
+        Google and Facebook login should be changed password by email link but
+        the exam document did not ask this function.
       </p>
 
       <p style={{color: '#919191'}}>
