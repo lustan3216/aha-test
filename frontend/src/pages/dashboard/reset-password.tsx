@@ -61,9 +61,9 @@ export default function () {
       <Typography.Title>RESET PASSWORD</Typography.Title>
 
       <p>
-        Only the users signed up by email or password are supported. Google and
-        Facebook login should be changed password by email link but the exam
-        document did not ask this function.
+        Only the user signed up by email or password are supported.
+        <br />
+        Google and Facebook login should be changed password by email link but the exam document did not ask this function.
       </p>
 
       <p style={{color: '#919191'}}>

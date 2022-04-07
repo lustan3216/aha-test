@@ -43,12 +43,12 @@ export default function () {
           style={{flex: 1}}
         />
         <Statistic
-          title="Today Active User"
+          title="Today Active Users"
           value={statistics.todayActiveUser}
           style={{flex: 1}}
         />
         <Statistic
-          title="Average In 7 days"
+          title="Average Users In 7 days"
           value={statistics.averageIn7}
           style={{flex: 1}}
         />
