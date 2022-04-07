@@ -135,6 +135,7 @@ export default class AuthController extends IndexController {
           provider: Provider.FACEBOOK,
           isVerify: true,
           picture: data.picture.data.url,
+          loginCount: 1,
         },
       });
 
@@ -174,6 +175,7 @@ export default class AuthController extends IndexController {
           provider: Provider.GOOGLE,
           isVerify: true,
           picture: data.picture,
+          loginCount: 1,
         },
       });
 
