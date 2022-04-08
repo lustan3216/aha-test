@@ -4,6 +4,7 @@ import userSerializer from '@serializers/user.serializer';
 import {compare, hash} from 'bcrypt';
 import {Exception} from '@utils/exception';
 import IndexController from '@controllers/index.controller';
+import {Provider} from '@/types/user';
 
 export default class UsersController extends IndexController {
   getUsers = async (
@@ -70,6 +71,15 @@ export default class UsersController extends IndexController {
         req.body.oldPassword,
         req.currentUser.password || ''
       );
+
+      if (req.currentUser.provider !== Provider.LOCAL) {
+        return next(
+          new Exception(400, {
+            oldPassword: ['Google and Facebook do not support reset password'],
+          })
+        );
+      }
+
       if (isPasswordMatching) {
         const newHashedPassword = await hash(req.body.newPassword, 10);
         const updateUserData = await this.usersClient.update({
