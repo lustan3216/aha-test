@@ -293,7 +293,7 @@ paths:
     get:
       tags:
         - email-verify
-      summary: The link in verification email and it will redirect to dashboard when success.
+      summary: A link in the verification email,  it will redirect to dashboard when verify success.
       parameters:
         - name: token
           in: path
