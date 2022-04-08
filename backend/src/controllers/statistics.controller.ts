@@ -3,7 +3,7 @@ import IndexController from '@/controllers/index.controller';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import { Exception } from "@utils/exception";
+import {Exception} from '@utils/exception';
 dayjs.extend(timezone);
 dayjs.extend(utc);
 
