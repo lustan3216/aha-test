@@ -10,9 +10,9 @@ export const COOKIES_SECURE = isProd;
 export const COOKIES_EXPIRES_IN = 60 * 60;
 
 export const AUTH_COOKIES_OPTION: CookieOptions = {
-  maxAge: COOKIES_EXPIRES_IN * 1000,
-  sameSite: isProd ? 'none' : undefined,
-  secure: COOKIES_SECURE,
+  // maxAge: COOKIES_EXPIRES_IN * 1000,
+  // sameSite: isProd ? 'none' : undefined,
+  // secure: COOKIES_SECURE,
 };
 
 export const AUTH_CLEAN_COOKIES_OPTION: CookieOptions = {

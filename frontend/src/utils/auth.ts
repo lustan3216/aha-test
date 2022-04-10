@@ -5,7 +5,11 @@ export function getToken() {
   return Cookie.get(TOKEN_KEY);
 }
 export function setToken(token: string) {
-  return Cookie.set(TOKEN_KEY, token);
+  return Cookie.set(TOKEN_KEY, token, {
+    secure: true,
+    sameSite: 'none',
+    expires: 1 / 24,
+  });
 }
 
 export function removeToken() {
