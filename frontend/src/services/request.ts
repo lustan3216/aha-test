@@ -44,10 +44,11 @@ instance.interceptors.response.use(
         const dvaApp = getDvaApp();
         dvaApp._store.dispatch({type: 'user/cleanUser'});
         if (pathname === '/auth/login') {
+          return Promise.reject(error);
+        } else if (/^\/dashboard/.test(pathname)) {
           message.error(data.message);
-        } else {
-          history.push('/auth/login');
         }
+        history.push('/auth/login');
       }
     } else if (status > 500) {
       message.error(ERROR_MESSAGE);
