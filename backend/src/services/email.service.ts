@@ -17,7 +17,7 @@ class AuthService {
     const msg = {
       to: email,
       from: 'aha-test@firstage.io', // Use the email address or domain you verified above
-      subject: 'Aha-project verify email - expire in a hour',
+      subject: 'Aha-project verify email - expire in an hour',
       html: verifyTemplate(verifyLink),
     };
 
