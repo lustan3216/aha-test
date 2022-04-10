@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector, history} from 'umi';
+import {useDispatch, useSelector, history} from 'umi';
 import {ModelType} from '@/models';
+import {setToken} from '@/utils/auth';
 import style from './auth.less';
 import {Typography, Button, message} from 'antd';
 import {userResendVerifyEmail} from '@/services/user';
@@ -10,9 +11,19 @@ const initialTime = 15 * 1000; // initial time in milliseconds, defaults to 6000
 const interval = 1000;
 
 export default function () {
+  const token = history.location.query?.token;
+  const dispatch = useDispatch();
+
+  if (token) {
+    setToken(token as string);
+    dispatch({type: 'userMeGet'});
+    return null;
+  }
+
   const email = useSelector((state: ModelType) => state.user.email);
   const [sentTo, setSentTo] = useState('');
   const [timeLeft, {start}] = useCountDown(initialTime, interval);
+
   const resend = async () => {
     start(initialTime);
     const data = await userResendVerifyEmail();
@@ -32,6 +43,7 @@ export default function () {
       start(initialTime);
     }
   }, []);
+
   const error = history.location.query?.error;
   const text = error
     ? 'Verify fail, please try again'

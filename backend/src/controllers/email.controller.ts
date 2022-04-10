@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from 'express';
-import {User} from '@prisma/client';
 import EmailService from '@services/email.service';
 import {createAuthToken, verifyEmailToken} from '@utils/token';
 import IndexController from '@controllers/index.controller';
@@ -35,7 +34,7 @@ export default class AuthController extends IndexController {
       const token = createAuthToken(user.id, COOKIES_EXPIRES_IN);
 
       res.cookie('Authorization', token, AUTH_COOKIES_OPTION);
-      res.redirect(`${FRONTEND_DOMAIN}/dashboard/profile`);
+      res.redirect(`${FRONTEND_DOMAIN}/auth/email-verify?token=${token}`);
     } catch (error) {
       res.redirect(`${FRONTEND_DOMAIN}/auth/email-verify?error=fail`);
     }
