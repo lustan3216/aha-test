@@ -146,7 +146,7 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            Header with `Set-Cookie` to store the token in the client side.
+            Header with `Set-Cookie` to store the token in the client side. Expire in an hour.
           headers:
             Set-Cookie:
               schema:
@@ -182,7 +182,7 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            Header with `Set-Cookie` to store the token in the client side.
+            Header with `Set-Cookie` to store the token in the client side. Expire in an hour.
           headers:
             Set-Cookie:
               schema:
