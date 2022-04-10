@@ -1,13 +1,13 @@
 import Cookie from 'js-cookie';
-const TokenKey = 'Authorization';
+export const TOKEN_KEY = 'Authorization';
 
 export function getToken() {
-  return Cookie.get(TokenKey);
+  return Cookie.get(TOKEN_KEY);
 }
 export function setToken(token: string) {
-  return Cookie.set(TokenKey, token);
+  return Cookie.set(TOKEN_KEY, token);
 }
 
 export function removeToken() {
-  return Cookie.remove(TokenKey);
+  return Cookie.remove(TOKEN_KEY);
 }

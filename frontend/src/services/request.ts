@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {objectCamelcase} from '@/utils/tool';
-import {getToken} from '@/utils/auth';
+import {getToken, TOKEN_KEY} from '@/utils/auth';
 import {message} from 'antd';
 import {history, getDvaApp} from 'umi';
 import {ERROR_MESSAGE} from '@/const';
@@ -19,7 +19,7 @@ instance.interceptors.request.use(
   config => {
     const token = getToken();
     if (config.headers && token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers[TOKEN_KEY] = `Bearer ${token}`;
     }
     return config;
   },
