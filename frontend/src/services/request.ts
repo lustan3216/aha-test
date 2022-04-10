@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {objectCamelcase} from '@/utils/tool';
+import {getToken} from '@/utils/auth';
 import {message} from 'antd';
 import {history, getDvaApp} from 'umi';
 import {ERROR_MESSAGE} from '@/const';
@@ -16,6 +17,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   config => {
+    const token = getToken();
+    if (config.headers && token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
     return config;
   },
   error => {

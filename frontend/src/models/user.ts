@@ -10,6 +10,7 @@ import {
   userResendVerifyEmail,
 } from '@/services/user';
 import {AccountProvider} from '@/types/user';
+import {removeToken} from '@/utils/auth';
 
 export type UserStateType = {
   [key: string]: any;
@@ -58,7 +59,7 @@ export default <UserModelType>{
       const {data} = yield call(userMe);
       yield put({type: 'setUser', payload: data});
     },
-    *signUp({payload}, {call, put}) {
+    *signUp({payload}, {call}) {
       yield call(userSignUp, payload);
       yield call(userResendVerifyEmail);
     },
@@ -80,6 +81,7 @@ export default <UserModelType>{
     *logout(action, {call, put}) {
       yield call(userLogout);
       yield put({type: 'cleanUser'});
+      removeToken();
     },
   },
   subscriptions: {
@@ -88,15 +90,3 @@ export default <UserModelType>{
     },
   },
 };
-
-// (async function() {
-//   try {
-//
-//
-//     if (userId && !isVerify) {
-//       history.push('/auth/email-verify')
-//     }
-//   } catch (e) {
-//     history.push('/auth/login')
-//   }
-// })()
