@@ -193,17 +193,14 @@ export default class AuthController extends IndexController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const userData = req.currentUser;
+      const currentUser = req.currentUser;
 
-      const findUser = await this.usersClient.findFirst({
-        where: {email: userData.email, password: userData.password},
-      });
-      if (!findUser) {
+      if (!currentUser) {
         next(new Exception(400, "You're not user"));
       }
 
       res.cookie('Authorization', '', AUTH_CLEAN_COOKIES_OPTION);
-      res.status(200).json({data: findUser});
+      res.status(200).json({data: currentUser});
     } catch (error) {
       next(error);
     }
