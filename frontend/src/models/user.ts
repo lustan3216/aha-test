@@ -10,7 +10,7 @@ import {
   userResendVerifyEmail,
 } from '@/services/user';
 import {AccountProvider} from '@/types/user';
-import {removeToken} from '@/utils/auth';
+import {removeToken, setToken} from '@/utils/auth';
 
 export type UserStateType = {
   [key: string]: any;
@@ -67,15 +67,18 @@ export default <UserModelType>{
       yield call(userResetPassword, payload);
     },
     *login({payload}, {call, put}) {
-      yield call(userLogin, payload);
+      const data = yield call(userLogin, payload);
+      setToken(data.token);
       yield put({type: 'userMeGet'});
     },
     *loginFacebook({payload}, {call, put}) {
-      yield call(userFacebookLogin, payload);
+      const data = yield call(userFacebookLogin, payload);
+      setToken(data.token);
       yield put({type: 'userMeGet'});
     },
     *loginGoogle({payload}, {call, put}) {
-      yield call(userGoogleLogin, payload);
+      const data = yield call(userGoogleLogin, payload);
+      setToken(data.token);
       yield put({type: 'userMeGet'});
     },
     *logout(action, {call, put}) {
