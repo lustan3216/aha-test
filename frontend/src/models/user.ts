@@ -60,7 +60,8 @@ export default <UserModelType>{
       yield put({type: 'setUser', payload: data});
     },
     *signUp({payload}, {call}) {
-      yield call(userSignUp, payload);
+      const data = yield call(userSignUp, payload);
+      setToken(data.token);
       yield call(userResendVerifyEmail);
     },
     *resetPassword({payload}, {call}) {
