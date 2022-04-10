@@ -41,7 +41,7 @@ components:
         token:
           type: string
           default: yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTY0ODkxNTA5NSwiZXhwIjoxNjQ4OTE4Njk1fQ.GubAZD2Fc_8YgBHslsWOnhMEtnDasfBLqqYokSLDWok
-          description: Token for fetch data
+          description: Token for fetching data
     User:
       type: object
       required:
@@ -218,7 +218,7 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            Header with `Set-Cookie` to store the token in cookie.
+            Header with `Set-Cookie` to store the token in the cookie. Expire in an hour.
           headers:
             Set-Cookie:
               schema:
