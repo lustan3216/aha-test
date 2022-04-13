@@ -1,9 +1,8 @@
 import {history} from 'umi';
 import {Button, Typography, Divider} from 'antd';
 import style from './index.less';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Provider, ErrorBoundary} from '@rollbar/react';
-import {hotjar} from 'react-hotjar';
 
 const rollbarConfig = {
   accessToken: process.env.ROLLBAR_KEY,
@@ -12,12 +11,6 @@ const rollbarConfig = {
 };
 
 export default function IndexPage() {
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production' && process.env.HOTJAR_ID) {
-      hotjar.initialize(Number(process.env.HOTJAR_ID), 6);
-    }
-  }, []);
-
   return (
     <Provider config={rollbarConfig}>
       <ErrorBoundary>
