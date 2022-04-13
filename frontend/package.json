@@ -36,14 +36,15 @@
     "react-dom": "17.x",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
+    "react-hotjar": "^5.0.0",
     "rollbar": "^2.24.1",
     "umi": "^3.5.21"
   },
   "devDependencies": {
-    "@types/node": "^14.11.2",
-    "@types/react": "^17.0.0",
     "@types/js-cookie": "^3.0.1",
     "@types/lodash.camelcase": "^4.3.6",
+    "@types/node": "^14.11.2",
+    "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-facebook-login": "^4.1.4",
     "gts": "^3.1.0",
