@@ -13,4 +13,8 @@ export default defineConfig({
   devServer: {
     https: true,
   },
+  define: {
+    'process.env.ROLLBAR_KEY': process.env.ROLLBAR_KEY,
+    'process.env.HOTJAR_ID': process.env.HOTJAR_ID,
+  }
 });
