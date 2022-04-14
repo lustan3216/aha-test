@@ -27,11 +27,17 @@ tags:
 
 components:
   securitySchemes:
-    cookieAuth:         # arbitrary name for the security scheme; will be used in the "security" key later
-      type: apiKey
-      in: cookie
-      name: Authorization
-      description: The token will be saved in cookie autimatically after login. Acutally, no need to save it manually.
+#    cookieAuth:         # arbitrary name for the security scheme; will be used in the "security" key later
+#      type: apiKey
+#      in: cookie
+#      name: Authorization
+#      description: The token will be saved in cookie autimatically after login. Acutally, no need to save it manually.
+    bearerAuth: # arbitrary name for the security scheme
+      description: You will obtain a token after a successful login.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     Token:
       type: object
@@ -146,12 +152,6 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            Header with `Set-Cookie` to store the token in the client side. Expire in an hour.
-          headers:
-            Set-Cookie:
-              schema:
-                type: string
-                example: Authorization=abcde12345; Path=/; HttpOnly
           content:
             application/json:
               schema:
@@ -182,12 +182,6 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            Header with `Set-Cookie` to store the token in the client side. Expire in an hour.
-          headers:
-            Set-Cookie:
-              schema:
-                type: string
-                example: Authorization=abcde12345; Path=/; HttpOnly
           content:
             application/json:
               schema:
@@ -218,12 +212,6 @@ paths:
         200:
           description: >
             Successfully authenticated.
-            Header with `Set-Cookie` to store the token in the cookie. Expire in an hour.
-          headers:
-            Set-Cookie:
-              schema:
-                type: string
-                example: Authorization=abcde12345; Path=/; HttpOnly
           content:
             application/json:
               schema:
@@ -264,7 +252,7 @@ paths:
           schema:
             type: string
       security:
-        - cookieAuth: []
+        - bearerAuth: []
       summary: Get user statistics
       responses:
         200:
@@ -315,7 +303,7 @@ paths:
       tags:
         - email-verify
       security:
-        - cookieAuth: []
+        - bearerAuth: []
       summary: Send the verification email
       responses:
         200:
@@ -340,7 +328,7 @@ paths:
         - me
       summary: Get self profile
       security:
-        - cookieAuth: []
+        - bearerAuth: []
       responses:
         200:
           description: "Success"
@@ -358,7 +346,7 @@ paths:
         - me
       summary: Only username can be updated
       security:
-        - cookieAuth: []
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -388,7 +376,7 @@ paths:
         - me
       summary: Update password
       security:
-        - cookieAuth: []
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -424,7 +412,7 @@ paths:
         - user
       summary: Get all users
       security:
-        - cookieAuth: []
+        - bearerAuth: []
       parameters:
         - in: query
           name: page
